@@ -1,0 +1,4 @@
+method,priority_signal,budget_fraction,clips_reviewed,total_high_error,high_error_caught,recall_at_budget,precision_at_budget,lift_over_random,relative_improvement_vs_whisper
+Random Review (Baseline 1),Uniform Random Selection,0.2,100,82,16.4,0.2,0.164,1.0,0.0
+Whisper Native Confidence (Baseline 2),Ascending avg_logprob (Least Confident First),0.2,100,82,52.0,0.6341463414634146,0.52,3.170731707317073,0.0
+WhisperWatch (Our Model),Descending risk_score (Highest Risk First),0.2,100,82,81.0,0.9878048780487805,0.81,4.939024390243902,55.769230769230774
