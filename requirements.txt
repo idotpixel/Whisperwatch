@@ -1,0 +1,22 @@
+# Data processing
+numpy
+pandas
+datasets
+
+# Machine learning
+scikit-learn
+joblib
+
+# Speech recognition
+openai-whisper
+soundfile
+
+# Model evaluation
+jiwer
+matplotlib
+
+# Application interface
+gradio
+
+# Testing
+pytest
