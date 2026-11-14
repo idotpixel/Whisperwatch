@@ -41,9 +41,9 @@ def score_features(artifact: dict, rows) -> list[float]:
     return pipeline.predict_proba(frame)[:, class_index].tolist()
 
 
-def predict_from_features(features: dict) -> dict:
+def predict_from_features(features: dict, *, model_path: Path = MODEL_PATH) -> dict:
     """Return a review-risk score, recommendation, and JSON-safe measurements."""
-    artifact = load_model()
+    artifact = load_model(model_path)
     score = score_features(artifact, [features])[0]
     threshold = artifact["review_threshold"]
     details = {}
