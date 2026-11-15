@@ -104,7 +104,14 @@ def replay_assessment(example):
     notes = f"""<div class="case-note"><h3>{escape(example.case_title or 'Case Note')}</h3>
         <p>{escape(example.notes)}</p>
         <p style="overflow-wrap:anywhere">Clip ID: {escape(example.clip_id)}</p></div>"""
-    return f"""{card}{budget}<dl class="case-outcomes">
+    limitation = ""
+    if example.recommend_review and example.wer == 0:
+        limitation = """<aside class="replay-limitation" aria-label="WhisperWatch limitation">
+          <h3>WhisperWatch limitation · False alarm</h3>
+          <p>The transcript matches every word in the human reference (0% word error rate).
+            WhisperWatch still flagged it for review.</p>
+        </aside>"""
+    return f"""{limitation}{card}{budget}<dl class="case-outcomes">
       <div><dt>Ground-truth WER</dt><dd>{example.wer:.1%}</dd></div>
       <div><dt>True Error Status</dt><dd>{truth}</dd></div>
       <div><dt>{'Hybrid outcome' if has_hybrid else 'Recorded outcome'}</dt><dd>{outcome}{disagreement}</dd></div>

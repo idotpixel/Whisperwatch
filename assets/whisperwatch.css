@@ -686,6 +686,16 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 
 /* Research panels and historical cases */
+#whisperwatch .replay-limitation {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px solid #dba7ad;
+  border-radius: 12px;
+  background: #fff0f1;
+  color: #8e2737;
+}
+.replay-limitation h3 { margin: 0 0 4px; font-size: 15px; }
+.replay-limitation p { margin: 0; font-size: 13px; line-height: 1.5; }
 #whisperwatch .risk-card.warning .recommendation {
   border-color: #dba7ad;
   background: #fff0f1;

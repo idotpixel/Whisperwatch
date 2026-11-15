@@ -10,7 +10,7 @@
     {
       "clip_id": "edinburghcstr/ami/AMI_EN2002a_H01_FEO070_0020774_0021798",
       "dataset": "AMI Meeting Corpus (Live Multi-speaker)",
-      "case_title": "A right-click question disappears",
+      "case_title": "Whisper omitted the question about right-clicking",
       "whisper_text": "I guess a button makes a bit more sense, because otherwise you don't really know what happens then.",
       "human_text": "I GUESS A BUTTON BUTTON MAKES A BIT MORE SENSE 'CAUSE OTHERWISE YOU DON'T REALLY KNOW THAT OH WHAT IF I RIGHT CLICK NOW WHAT HAPPENS THEN",
       "wer": 0.37037037037037035,
@@ -26,7 +26,7 @@
     {
       "clip_id": "edinburghcstr/ami/AMI_TS3003d_H00_MTD009PM_0104376_0104780",
       "dataset": "AMI Meeting Corpus (Live Multi-speaker)",
-      "case_title": "Teletext becomes “data text”",
+      "case_title": "Whisper misheard “teletext” as “data text”",
       "whisper_text": "Can we integrate the data text and the subtitles in one button?",
       "human_text": "CAN WE USE CAN'T WE INTEGRATE THE TELETEXT AND THE SUBTITLES IN ONE BUTTON",
       "wer": 0.35714285714285715,
@@ -42,7 +42,7 @@
     {
       "clip_id": "edinburghcstr/ami/AMI_EN2002b_H00_FEO070_0008166_0008661",
       "dataset": "AMI Meeting Corpus (Live Multi-speaker)",
-      "case_title": "Matching words still earn a review slot",
+      "case_title": "False alarm despite 0% word error",
       "whisper_text": "Very interesting start of the meeting.",
       "human_text": "VERY INTERESTING START OF THE MEETING",
       "wer": 0.0,
@@ -53,12 +53,12 @@
       "native_risk": 0.5425781071186065,
       "avg_logprob": -0.5425781071186065,
       "native_review": true,
-      "notes": "The generated transcript and reference use the same words. Both methods allocated a review slot even though the recorded WER was zero."
+      "notes": "Both the WhisperWatch hybrid and Whisper’s built-in confidence ranked this clip in their top 20% for review. The classifier estimates risk from Whisper’s decoding signals and clip duration. The human reference is used afterward to measure errors."
     },
     {
       "clip_id": "common_voice_17/en/dev/common_voice_en_28037125",
       "dataset": "Common Voice 17 (Dev)",
-      "case_title": "A kingfisher becomes a “skin fixture”",
+      "case_title": "Whisper misheard “kingfisher” as “skin fixture”",
       "whisper_text": "This skin fixture shows sexual dim of prism with the male more brightly colored than the female.",
       "human_text": "This kingfisher shows sexual dimorphism, with the male more brightly coloured than the female.",
       "wer": 0.42857142857142855,
@@ -74,7 +74,7 @@
     {
       "clip_id": "common_voice_17/en/dev/common_voice_en_18960958",
       "dataset": "Common Voice 17 (Dev)",
-      "case_title": "A time reference becomes a country",
+      "case_title": "Whisper replaced “the next day” with “and Israel”",
       "whisper_text": "They repeated the same procedure on the way back to Jordan and Israel.",
       "human_text": "They repeated the same procedure on the way back to Jordan the next day.",
       "wer": 0.21428571428571427,
@@ -90,7 +90,7 @@
     {
       "clip_id": "openslr/librispeech_asr/2609-156975-0016",
       "dataset": "LibriSpeech Live (Audiobook)",
-      "case_title": "An Egyptian taskmaster becomes “gypsum”",
+      "case_title": "Whisper misheard “Egyptian” as “gypsum”",
       "whisper_text": "Which Moses justified in resisting the gypsum taskmaster",
       "human_text": "WAS MOSES JUSTIFIED IN RESISTING THE EGYPTIAN TASKMASTER",
       "wer": 0.25,
@@ -106,7 +106,7 @@
     {
       "clip_id": "openslr/librispeech_asr/2830-3980-0022",
       "dataset": "LibriSpeech Live (Audiobook)",
-      "case_title": "A clause becomes a claw",
+      "case_title": "Whisper misheard “clause” as “claw”",
       "whisper_text": "The claw seemed superfluous on first sight.",
       "human_text": "THE CLAUSE SEEMS SUPERFLUOUS ON FIRST SIGHT",
       "wer": 0.2857142857142857,
