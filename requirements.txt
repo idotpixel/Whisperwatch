@@ -1,22 +1,8 @@
-# Data processing
-numpy
-pandas
+-r requirements-live.txt
+
+# Training and evaluation
 datasets
-
-# Machine learning
-scikit-learn
-joblib
-
-# Speech recognition
-openai-whisper
 soundfile
-
-# Model evaluation
 jiwer
 matplotlib
-
-# Application interface
-gradio
-
-# Testing
 pytest

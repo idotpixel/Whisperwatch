@@ -8,7 +8,7 @@
 ## 1. Executive Summary
 
 - **Central Research Question**: *Can WhisperWatch identify more high-error transcriptions than a simple Whisper-confidence ranking when human reviewers can inspect only a limited number of clips?*
-- **The Verdict**: Confidence-based review prioritization performs **2.0x to 3.5x better than random review** across all evaluated speech corpora. Our custom ML classifier and original 50/50 hybrid perform **comparably to native Whisper confidence**, but additional predictive benefit remains uncertain.
+- **The verdict** — At the same review budget, Whisper’s confidence caught 89 vs. 52 high-error clips on AMI and 14 vs. 4 on LibriSpeech, the two held-out sets with measured random baselines. An advantage over Whisper’s confidence alone remains unproven.
 - **Operational Scenario**: A subtitle editing team with capacity to review **20% of audio recordings**.
 - **Key Finding (Primary Live Meeting Holdout - AMI)**:
   - **Random Review**: Catches **20.3%** of high-error recordings (52 / 256 clips).

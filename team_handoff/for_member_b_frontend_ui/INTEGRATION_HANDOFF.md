@@ -84,7 +84,7 @@ with gr.Tab("Evaluation Benchmarks"):
 
 ### C. Required Interface Limitations and Scientific Nuance
 Per hackathon judging rules, the Gradio interface must reflect our established scientific conclusions accurately:
-1. **Highlight the Lift over Random**: Emphasize that reviewing clips prioritized by confidence/risk catches **2.0x to 3.5x more severe errors** than uniform random checking.
+1. **Compare with measured random review.** At the same review budget, Whisper’s confidence caught 89 vs. 52 high-error clips on AMI and 14 vs. 4 on LibriSpeech, the two held-out sets with measured random baselines.
 2. **Do Not Overclaim Superiority**: State honestly that our custom classifier and hybrid model perform **comparably to native Whisper confidence**, and that differences on live test sets are not statistically significant ($p \ge 0.18$).
 3. **Display Corpus Limitations**: Load `reports/dataset_limitations.json` into an "About the Datasets & Limitations" accordion.
 

@@ -125,17 +125,20 @@ def plot_baseline_comparison(
 
     # Simplify method labels for visual clarity
     def clean_name(m: str) -> str:
-        if "Random" in m:
+        name = m.casefold().strip()
+        if "random" in name:
             return "Random Review\n(Baseline 1)"
-        if "Native" in m or ("Whisper" in m and "Watch" not in m and "Hybrid" not in m):
-            return "Whisper Confidence\n(Baseline 2)"
-        if "Hybrid" in m:
+        if "audio-aware" in name or "audio_aware" in name or name == "audio_hybrid":
+            return "Audio-Aware Hybrid" if "hybrid" in name else "Audio-Aware Model\n(Acoustic)"
+        if "control" in name:
+            return "Control Hybrid" if "hybrid" in name else "Control Model\n(10-Feature)"
+        if "hybrid" in name:
             return "WhisperWatch Hybrid\n(50/50 Percentile)"
-        if "Audio-Aware" in m or "audio_aware" in m:
-            return "Audio-Aware Model\n(Acoustic)"
-        if "Control" in m:
-            return "Control Model\n(10-Feature)"
-        return "WhisperWatch\n(Classifier)"
+        if "native" in name or ("whisper" in name and "watch" not in name):
+            return "Whisper Confidence\n(Baseline 2)"
+        if name == "classifier" or "whisperwatch" in name:
+            return "WhisperWatch\n(Classifier)"
+        return m
 
     df = comparison_df.copy()
     labels = [clean_name(m) for m in df["method"]]

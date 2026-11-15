@@ -349,8 +349,9 @@ def launch(*, share=None, replay_path=None, evaluation_path=None, **kwargs):
     if share is None:
         share = "COLAB_RELEASE_TAG" in os.environ or "COLAB_GPU" in os.environ
     settings = theme_settings() if GRADIO_MAJOR >= 6 else {}
+    blocked_paths = [str(ROOT / "models"), *(kwargs.pop("blocked_paths", None) or [])]
     return build_app(replay_path, evaluation_path).queue().launch(
-        share=share, **settings, **kwargs,
+        share=share, blocked_paths=blocked_paths, **settings, **kwargs,
     )
 
 

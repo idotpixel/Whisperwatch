@@ -1,37 +1,29 @@
-# Run WHISPERWATCH
+# Run WhisperWatch
 
-Use Python 3.12 or 3.13 for the demo. From the project root:
+## Live audio uploads
+
+Use Python 3.12 from the repository folder.
+
+```bash
+python -m pip install -r requirements-live.txt
+python -m src.setup_demo "/path/to/model.zip"
+python app.py
+```
+
+Use the approved classifier ZIP supplied by the team. The setup command verifies the trained classifier before installing it under `models/`. Whisper weights are downloaded on the first live request. Open the address printed by Gradio and select **Open Workspace**. Upload an English recording up to 30 seconds. CPU inference can take a minute or more.
+
+## Google Colab with the live models
+
+Open [the live demo notebook](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb), choose **Runtime → Change runtime type → T4 GPU**, and run the cells. The notebook clones the public code and asks the host to upload the classifier ZIP. It verifies the model and prints a Gradio link that visitors can use while the Colab runtime is active.
+
+## Replay and benchmarks only
+
+To browse the historical cases and evaluation charts without installing the speech backend, run:
 
 ```bash
 python -m pip install "gradio==5.50.0"
 python app.py
 ```
-
-Open the URL Gradio prints and select **Open Workspace**. Dataset Replay uses `assets/replay_cases.json`. Model Evaluation uses the packaged files in `assets/verified/`. The live tools need Member A’s backend and verified classifier artifact.
-
-On Gradio 4, the landing and workspace share a page. A compatible frontend-only environment uses Python 3.12 with `gradio==4.44.1`, `huggingface-hub<1`, `pydantic==2.10.6`, and `fastapi==0.115.12`. Use Gradio 5 for the live backend, whose handoff pins Hugging Face Hub 1.32.0.
-
-## Google Colab with the live models
-
-1. Start Member A’s backend Colab notebook in a T4 GPU runtime. Upload the backend and verified classifier bundles when it asks.
-2. Make sure the integrated project directory contains `app.py`, `ui/`, `assets/`, Member A’s `src/` files, and the installed model under `models/`.
-3. In a Colab cell, run `%pip install "gradio==5.50.0"`. Keep the dependencies pinned by the backend handoff.
-4. Run the following from the notebook. Set `project` to the integrated folder if it differs from the backend notebook’s default.
-
-```python
-import subprocess
-import sys
-from src.colab_backend import gpu_process_env
-
-subprocess.run(
-    [sys.executable, "-u", "app.py", "--share"],
-    cwd=project,
-    env=gpu_process_env(),
-    check=True,
-)
-```
-
-Open the Gradio share URL printed in the cell. As a standalone entry point, `python app.py` also enables sharing when it detects a Colab runtime.
 
 ## Read the results
 

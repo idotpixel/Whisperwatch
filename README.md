@@ -9,6 +9,14 @@ Automatic captions save time, but checking every line can still take hours. Whis
 
 Upload a short English recording and Whisper turns it into text. A model we trained estimates how likely the transcript is to have substantial word errors. For a batch of clips, the app can combine that estimate with Whisper’s own confidence signals to build a review queue. The editor can then listen to the recordings and make the final call.
 
+## What we added
+
+We built a review queue for subtitle editors who can check one in five clips. Our question was whether a trained model adds anything beyond Whisper’s own confidence.
+
+## How it works
+
+We trained on about 1.09 million English Common Voice clips from Whispered, selecting compatible recordings up to 30 seconds. Human transcripts helped label past errors. New recordings are scored using Whisper’s own signals and information such as clip length.
+
 ## See a real false alarm
 
 WhisperWatch queued this clip for review even though every word matched the human transcript. Dataset Replay shows both versions and explains the decision.
@@ -28,18 +36,22 @@ We tested four ways of choosing clips on the same set of 750 AMI meeting recordi
 | Whisper’s built-in confidence | 89 |
 | Both scores combined | 91 |
 
-Each way of prioritizing clips caught more errors than random selection on this test. The combined score found two more high-error clips than Whisper’s confidence alone. Across our other tests, that advantage varied.
+Each way of prioritizing clips caught more errors than random selection on this test. **Any added benefit over Whisper’s built-in confidence remains unproven.** The combined score caught two more high-error clips on this meeting test and one fewer on a separate meeting test. The observed differences were small and inconsistent.
+
+## What we’d do next
+
+We evaluated English speech without separate accent results. We’d test across more speakers and accents, then measure whether the review queue saves subtitle editors time.
 
 ## Try the interface
 
-With Python 3.12, run these commands from the repository folder.
+Run **Dataset Replay** and **Model Evaluation** from any checkout with Python 3.12.
 
 ```bash
 python -m pip install "gradio==5.50.0"
 python app.py
 ```
 
-Open the address printed in your terminal and select **Open Workspace**. **Dataset Replay** and **Model Evaluation** run with the examples and verified results included here. Live transcription requires Whisper Large V3 and the team’s separately supplied, checksum-verified classifier. The [Colab setup guide](ui/README.md#google-colab-with-the-live-models) documents that setup.
+Live uploads use the team’s verified classifier ZIP. With that file, you can [run the full app locally](ui/README.md#live-audio-uploads) or [launch it on a Colab T4 GPU](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb). The Colab host uploads the model once. People visiting the Gradio link can then upload audio from their browsers.
 
 ## Credits
 
