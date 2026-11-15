@@ -105,8 +105,8 @@ def panel_heading(title, description):
 
 
 def evaluation_asset(filename):
-    """Find an asset in the team handoff, reports checkout, or packaged frontend."""
-    for directory in (ROOT / "team_handoff" / "for_member_b_frontend_ui", ROOT / "reports", VERIFIED):
+    """Find a packaged frontend asset, falling back to the handoff or reports."""
+    for directory in (VERIFIED, ROOT / "team_handoff" / "for_member_b_frontend_ui", ROOT / "reports"):
         path = directory / filename
         if path.is_file():
             return path
