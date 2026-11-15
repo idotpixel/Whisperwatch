@@ -490,7 +490,6 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 #whisperwatch .analyze-button:disabled { background: #f3e4d8; border-color: #e8d4c7; color: #735e51; box-shadow: none; }
 #whisperwatch :is(.reveal-button, .analyze-button):active:not(:disabled) { transform: translateY(1px); }
-#whisperwatch .reference { background: #fff6ed; border: 1px solid var(--line); padding: 12px; border-radius: 11px; }
 .reference-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: baseline; font-size: 13px; color: var(--muted); }
 .reference-meta strong { color: var(--ink); }
 
