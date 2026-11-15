@@ -8,18 +8,22 @@ from pathlib import Path
 from ui.replay import number_field, text_field
 
 LOGGER = logging.getLogger(__name__)
-OFFLINE = "Live analysis is unavailable in this checkout. Dataset Replay is available."
+OFFLINE = "Live analysis needs the backend and trained model. Dataset Replay is available."
 
 
 class UploadError(Exception):
     """An error whose message can be shown to the user."""
 
 
-def backend_present(*, batch=False):
-    """Check availability without loading Whisper or classifier artifacts."""
-    return find_spec("src.asr") is not None and (
-        not batch or find_spec("src.inference") is not None
-    )
+def backend_present():
+    """Check backend and model availability without loading Whisper or classifier weights."""
+    if find_spec("src.asr") is None:
+        return False
+    try:
+        from src.inference import PRODUCTION_MODEL_PATH
+    except ImportError:
+        return False
+    return PRODUCTION_MODEL_PATH.is_file()
 
 
 def analyze_upload(audio_path):

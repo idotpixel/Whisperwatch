@@ -116,7 +116,6 @@ def evaluation_asset(filename):
 def live_tab():
     """Build the single-clip workspace and optional batch ranking queue."""
     can_analyze = backend_present()
-    can_rank = backend_present(batch=True)
 
     def status_for(audio_path=None):
         if not can_analyze:
@@ -147,7 +146,7 @@ def live_tab():
     def run_batch(audio_paths, progress=gr.Progress()):
         if not audio_paths:
             return "", status_line("Upload at least one recording to rank.", "warning")
-        if not can_rank:
+        if not can_analyze:
             return "", status_line(OFFLINE, "warning")
         try:
             rows, filenames = analyze_batch(audio_paths, progress)
@@ -194,7 +193,7 @@ def live_tab():
             api_name="analyze_audio", concurrency_id="upload-analysis",
         )
 
-        batch_ready = "" if can_rank else status_line(OFFLINE, "warning")
+        batch_ready = "" if can_analyze else status_line(OFFLINE, "warning")
         with gr.Accordion("Rank a Batch of Recordings", open=False, elem_classes="card"):
             gr.HTML('<p class="muted">Compare clips within a batch to decide what to review first. '
                     'The top 20%, rounded up, enter the review queue.</p>')
@@ -202,7 +201,10 @@ def live_tab():
                 label="Audio recordings", type="filepath", file_count="multiple",
                 file_types=["audio"], elem_id="batch-recordings",
             )
-            rank = gr.Button("Rank Batch", variant="primary", elem_classes=["analyze-button", "rank-button"])
+            rank = gr.Button(
+                "Rank Batch", variant="primary", elem_classes=["analyze-button", "rank-button"],
+                interactive=can_analyze,
+            )
             batch_status = gr.HTML(batch_ready)
             batch_results = gr.HTML()
 
