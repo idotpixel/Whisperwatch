@@ -1,0 +1,19 @@
+experiment_name,method,dataset_role,total_clips,high_error_total,reviewed_clips,high_error_caught,precision_at_budget,recall_at_budget,diff_vs_native_caught,matches_saved_review
+Experiment 1 — Common Voice Dev Verification,classifier,Explored archived development verification (repeatedly tuned on during research),8152,1075,1631,703,0.431023911710607,0.653953488372093,-2,True
+Experiment 1 — Common Voice Dev Verification,native,Explored archived development verification (repeatedly tuned on during research),8152,1075,1631,705,0.4322501532801962,0.6558139534883721,0,True
+Experiment 1 — Common Voice Dev Verification,original_hybrid,Explored archived development verification (repeatedly tuned on during research),8152,1075,1631,715,0.43838136112814224,0.6651162790697674,10,True
+Experiment 2 — LibriSpeech Live Holdout,random,"External live audiobook holdout (clean audio, low error prevalence: 22 high-error clips)",499,22,100,4,0.04,0.18181818181818182,-10,True
+Experiment 2 — LibriSpeech Live Holdout,classifier,"External live audiobook holdout (clean audio, low error prevalence: 22 high-error clips)",499,22,100,15,0.15,0.6818181818181818,1,True
+Experiment 2 — LibriSpeech Live Holdout,native,"External live audiobook holdout (clean audio, low error prevalence: 22 high-error clips)",499,22,100,14,0.14,0.6363636363636364,0,True
+Experiment 2 — LibriSpeech Live Holdout,original_hybrid,"External live audiobook holdout (clean audio, low error prevalence: 22 high-error clips)",499,22,100,15,0.15,0.6818181818181818,1,True
+Experiment 3 — First AMI Live Retraining Holdout,random,"Primary live meeting holdout (conversational audio, 4 linked meeting groups)",750,256,150,52,0.3466666666666667,0.203125,-37,True
+Experiment 3 — First AMI Live Retraining Holdout,classifier,"Primary live meeting holdout (conversational audio, 4 linked meeting groups)",750,256,150,85,0.5666666666666667,0.33203125,-4,True
+Experiment 3 — First AMI Live Retraining Holdout,native,"Primary live meeting holdout (conversational audio, 4 linked meeting groups)",750,256,150,89,0.5933333333333334,0.34765625,0,True
+Experiment 3 — First AMI Live Retraining Holdout,original_hybrid,"Primary live meeting holdout (conversational audio, 4 linked meeting groups)",750,256,150,91,0.6066666666666667,0.35546875,2,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,classifier,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,73,0.5703125,0.29918032786885246,-8,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,native,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,81,0.6328125,0.3319672131147541,0,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,original_hybrid,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,80,0.625,0.32786885245901637,-1,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,control,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,81,0.6328125,0.3319672131147541,0,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,audio_aware,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,77,0.6015625,0.3155737704918033,-4,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,control_hybrid,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,81,0.6328125,0.3319672131147541,0,True
+Experiment 4 — Controlled AMI Audio-Aware Holdout,audio_hybrid,"Fresh controlled meeting holdout (16 meeting groups, testing acoustic feature models)",640,244,128,83,0.6484375,0.3401639344262295,2,True
