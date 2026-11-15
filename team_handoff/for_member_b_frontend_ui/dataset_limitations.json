@@ -1,0 +1,36 @@
+{
+  "evaluation_purpose": "Demonstrate review-prioritization under operational human review budgets (20% review capacity).",
+  "scientific_conclusion": "Confidence-based review prioritization performs substantially better than random review on all evaluated datasets. Our custom classifier performs comparably to native Whisper confidence, but its additional benefit remains uncertain.",
+  "cohorts": [
+    {
+      "name": "Common Voice 17 Development Verification",
+      "clips": 8152,
+      "high_error_clips": 1075,
+      "limitation": "Development evidence. Repeatedly explored and tuned on during model iteration; not independent final validation."
+    },
+    {
+      "name": "LibriSpeech Live Holdout",
+      "clips": 499,
+      "high_error_clips": 22,
+      "limitation": "External clean audiobook holdout. Contains only 22 high-error clips; low statistical power where 1 clip shifts recall by 4.55%."
+    },
+    {
+      "name": "AMI Meeting Corpus Holdout 1",
+      "clips": 750,
+      "high_error_clips": 256,
+      "limitation": "Conversational multi-speaker holdout. All 750 clips derive from only 4 linked meeting groups and 16 speakers."
+    },
+    {
+      "name": "AMI Meeting Corpus Holdout 2 (Audio-Aware)",
+      "clips": 640,
+      "high_error_clips": 244,
+      "limitation": "Acoustic feature controlled experiment across 16 meeting families. Paired differences between native and acoustic hybrid remain within cluster variation."
+    }
+  ],
+  "methodological_safeguards": [
+    "Human reference transcripts and WER values were strictly isolated for evaluation labels and never exposed to inference models.",
+    "Identical eligible clip populations evaluated across all ranking methods within each cohort.",
+    "Scores oriented consistently: higher risk = higher priority, lower logprob = higher priority.",
+    "Missing confidence handled deterministically: missing confidence ranked first."
+  ]
+}
