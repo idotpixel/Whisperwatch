@@ -48,8 +48,8 @@ def hero(*, workspace=False, routed=True):
           <svg class="brand-icon" viewBox="0 0 154 100" aria-hidden="true" focusable="false">
             <defs>
               <linearGradient id="ww-logo-gradient" x2="1" y2=".35">
-                <stop stop-color="#3186f4"/>
-                <stop offset="1" stop-color="#174287"/>
+                <stop stop-color="#ff8200"/>
+                <stop offset="1" stop-color="#eb3800"/>
               </linearGradient>
             </defs>
             <path fill="url(#ww-logo-gradient)" d="M2 47C23 20 51 1 78 1s56 19 74 46q3 4 0 8c-19 27-47 44-75 44S22 82 2 55q-3-4 0-8Z"/>
@@ -302,7 +302,7 @@ def workspace_tabs(replay_path, evaluation_path):
 def theme_settings():
     return {
         "theme": gr.themes.Base(
-            primary_hue="blue", neutral_hue="slate",
+            primary_hue="orange", neutral_hue="stone",
             font=[gr.themes.GoogleFont("Inter"), "system-ui", "sans-serif"],
         ),
         "css": STYLES.read_text(encoding="utf-8"),

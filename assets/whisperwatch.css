@@ -2,17 +2,17 @@
 
 /* WhisperWatch brand palette and Gradio control tokens */
 :root {
-  --ww-page: #fafbfe;
-  --ww-mist: #e9f0fc;
-  --ww-blue: #1c68e3;
-  --ww-secondary: #1c68e3;
-  --ww-sky: #1c68e3;
+  --ww-page: #fffcf9;
+  --ww-peach: #fff3e6;
+  --ww-orange: #ff5500;
+  --ww-secondary: #ff7a00;
+  --ww-amber: #ffa500;
   --ww-ink: #1a1a1a;
-  --ww-muted: #4d5664;
-  --ww-accent: #1a4a99;
-  --ww-line: #cbd4e4;
-  --ww-focus: #2254a5;
-  --ww-gradient: linear-gradient(110deg, #1c68e3, #1c68e3 44%, #1c68e3);
+  --ww-muted: #67534a;
+  --ww-accent: #ab3808;
+  --ww-line: #e8d4c7;
+  --ww-focus: #b74210;
+  --ww-gradient: linear-gradient(110deg, #ffa500, #ff7a00 44%, #ff5500);
 }
 
 html, body {
@@ -51,14 +51,14 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 .gradio-container::before {
   z-index: -2;
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20850%20410%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22amber%22%20x2%3D%22.9%22%20y2%3D%22.85%22%3E%3Cstop%20stop-color%3D%22%2382acf0%22%2F%3E%3Cstop%20offset%3D%22.56%22%20stop-color%3D%22%234180e7%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231c68e3%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22threads%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%231c68e3%22%20stop-opacity%3D%220%22%2F%3E%3Cstop%20offset%3D%22.76%22%20stop-color%3D%22%232367d6%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232367d6%22%20stop-opacity%3D%22.25%22%2F%3E%3C%2FlinearGradient%3E%3Cpath%20id%3D%22edge%22%20d%3D%22M113%2049C258%2023%20317%20107%20457%20120s237-21%20306%2088c35%2055%2052%20103%20102%20112%22%2F%3E%3C%2Fdefs%3E%0A%3Cpath%20fill%3D%22%23b5cef6%22%20opacity%3D%22.77%22%20d%3D%22M82-25h803v365c-83%2015-129-132-236-164-101-31-209%202-316-56C246%2073%20204%2023%2082-25Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23amber)%22%20opacity%3D%22.63%22%20d%3D%22M232-25h653v287c-54-24-82-103-178-127-99-24-201-6-294-58-54-30-104-61-181-102Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23amber)%22%20opacity%3D%22.78%22%20d%3D%22M390-23h491v197c-52%203-64-73-166-99C602%2045%20508%2070%20390-23Z%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23threads)%22%20stroke-width%3D%221.2%22%3E%3Cuse%20href%3D%22%23edge%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2214%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2221%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2228%22%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%22%232262c9%22%20opacity%3D%22.46%22%3E%3Ccircle%20cx%3D%22700%22%20cy%3D%22229%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%22751%22%20cy%3D%22265%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22810%22%20cy%3D%22222%22%20r%3D%222.6%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") top right / clamp(24rem, 58vw, 66rem) auto no-repeat,
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20730%20390%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22tint%22%20x2%3D%221%22%20y2%3D%22.25%22%3E%3Cstop%20stop-color%3D%22%234382e8%22%2F%3E%3Cstop%20offset%3D%22.68%22%20stop-color%3D%22%2386aef0%22%20stop-opacity%3D%22.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c4d8f8%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22lines%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%233771d0%22%20stop-opacity%3D%22.53%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233771d0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3Cpath%20id%3D%22ripple%22%20d%3D%22M-30%20105C119%20183%20130%20217%20234%20194S382%20108%20494%20151s147%2099%20257%2066%22%2F%3E%3C%2Fdefs%3E%0A%3Cpath%20fill%3D%22url(%23tint)%22%20opacity%3D%22.38%22%20d%3D%22M-20%2065c108%2056%20150%20143%20255%20124%2082-14%20154-107%20259-55%2083%2040%20150%20114%20254%2079v183H-20Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23tint)%22%20opacity%3D%22.28%22%20d%3D%22M-20%20155c100%2014%20158%20117%20263%2072%2087-37%20160-91%20266-48%2081%2033%20130%2066%20239%2041v176H-20Z%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23lines)%22%20stroke-width%3D%221.05%22%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%22-16%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%222%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2211%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2220%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2229%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") left bottom / clamp(21rem, 48vw, 53rem) auto no-repeat,
-    radial-gradient(ellipse at 96% 23%, #a4c2f4a8, transparent 36rem),
-    radial-gradient(ellipse at 1% 61%, #9cbdf38c, transparent 32rem),
-    linear-gradient(158deg, #f1f6fd, var(--ww-page) 58%, #e7effc);
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20850%20410%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22amber%22%20x2%3D%22.9%22%20y2%3D%22.85%22%3E%3Cstop%20stop-color%3D%22%23ffc773%22%2F%3E%3Cstop%20offset%3D%22.56%22%20stop-color%3D%22%23ff9d29%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff5500%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22threads%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ff9800%22%20stop-opacity%3D%220%22%2F%3E%3Cstop%20offset%3D%22.76%22%20stop-color%3D%22%23ef660a%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ef660a%22%20stop-opacity%3D%22.25%22%2F%3E%3C%2FlinearGradient%3E%3Cpath%20id%3D%22edge%22%20d%3D%22M113%2049C258%2023%20317%20107%20457%20120s237-21%20306%2088c35%2055%2052%20103%20102%20112%22%2F%3E%3C%2Fdefs%3E%0A%3Cpath%20fill%3D%22%23ffd8ac%22%20opacity%3D%22.77%22%20d%3D%22M82-25h803v365c-83%2015-129-132-236-164-101-31-209%202-316-56C246%2073%20204%2023%2082-25Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23amber)%22%20opacity%3D%22.63%22%20d%3D%22M232-25h653v287c-54-24-82-103-178-127-99-24-201-6-294-58-54-30-104-61-181-102Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23amber)%22%20opacity%3D%22.78%22%20d%3D%22M390-23h491v197c-52%203-64-73-166-99C602%2045%20508%2070%20390-23Z%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23threads)%22%20stroke-width%3D%221.2%22%3E%3Cuse%20href%3D%22%23edge%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2214%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2221%22%2F%3E%3Cuse%20href%3D%22%23edge%22%20y%3D%2228%22%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%22%23e05b0b%22%20opacity%3D%22.46%22%3E%3Ccircle%20cx%3D%22700%22%20cy%3D%22229%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%22751%22%20cy%3D%22265%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22810%22%20cy%3D%22222%22%20r%3D%222.6%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") top right / clamp(24rem, 58vw, 66rem) auto no-repeat,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20730%20390%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22tint%22%20x2%3D%221%22%20y2%3D%22.25%22%3E%3Cstop%20stop-color%3D%22%23ff8c2c%22%2F%3E%3Cstop%20offset%3D%22.68%22%20stop-color%3D%22%23ffbd77%22%20stop-opacity%3D%22.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffdfbd%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22lines%22%20x2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e67421%22%20stop-opacity%3D%22.53%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e67421%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3Cpath%20id%3D%22ripple%22%20d%3D%22M-30%20105C119%20183%20130%20217%20234%20194S382%20108%20494%20151s147%2099%20257%2066%22%2F%3E%3C%2Fdefs%3E%0A%3Cpath%20fill%3D%22url(%23tint)%22%20opacity%3D%22.38%22%20d%3D%22M-20%2065c108%2056%20150%20143%20255%20124%2082-14%20154-107%20259-55%2083%2040%20150%20114%20254%2079v183H-20Z%22%2F%3E%0A%3Cpath%20fill%3D%22url(%23tint)%22%20opacity%3D%22.28%22%20d%3D%22M-20%20155c100%2014%20158%20117%20263%2072%2087-37%20160-91%20266-48%2081%2033%20130%2066%20239%2041v176H-20Z%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23lines)%22%20stroke-width%3D%221.05%22%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%22-16%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%222%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2211%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2220%22%2F%3E%3Cuse%20href%3D%22%23ripple%22%20y%3D%2229%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") left bottom / clamp(21rem, 48vw, 53rem) auto no-repeat,
+    radial-gradient(ellipse at 96% 23%, #ffd099a8, transparent 36rem),
+    radial-gradient(ellipse at 1% 61%, #ffc6908c, transparent 32rem),
+    linear-gradient(158deg, #fff8ef, var(--ww-page) 58%, #fff1e4);
 }
 .gradio-container::after {
-  --tide-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22paperwave%22%20gradientUnits%3D%22userSpaceOnUse%22%20x2%3D%221600%22%3E%3Cstop%20stop-color%3D%22%233a75d5%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%234a82de%22%20stop-opacity%3D%22.24%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233e76d2%22%20stop-opacity%3D%22.5%22%2F%3E%3C%2FlinearGradient%3E%0A%3Cpath%20id%3D%22upper%22%20d%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3Canimate%20attributeName%3D%22d%22%20dur%3D%2219s%22%20repeatCount%3D%22indefinite%22%20calcMode%3D%22spline%22%20keyTimes%3D%220%3B.25%3B.5%3B.75%3B1%22%20keySplines%3D%22.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%22%20values%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%3BM-55%20149C106%20188%20179%20114%20315%20138S577%20202%20738%20134%20983%20100%201158%20154%201418%20241%201655%20157%3BM-55%20160C109%20198%20181%20174%20315%20154S580%20108%20738%20151%20980%20241%201158%20180%201420%20110%201655%20161%3BM-55%20170C110%20142%20182%20150%20315%20137S578%20152%20738%20183%20983%20191%201158%20162%201417%20145%201655%20145%3BM-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%2F%3E%3C%2Fpath%3E%3Cpath%20id%3D%22middle%22%20d%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3Canimate%20attributeName%3D%22d%22%20dur%3D%2223s%22%20repeatCount%3D%22indefinite%22%20calcMode%3D%22spline%22%20keyTimes%3D%220%3B.25%3B.5%3B.75%3B1%22%20keySplines%3D%22.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%22%20values%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%3BM-55%20564C125%20618%20213%20509%20375%20535S623%20661%20802%20557%201013%20460%201183%20532%201422%20596%201655%20487%3BM-55%20568C125%20548%20213%20616%20375%20565S623%20460%20802%20530%201013%20659%201183%20553%201422%20441%201655%20526%3BM-55%20615C125%20602%20213%20525%20375%20533S623%20515%20802%20545%201013%20561%201183%20494%201422%20525%201655%20544%3BM-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%2F%3E%3C%2Fpath%3E%3C%2Fdefs%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23paperwave)%22%20stroke-width%3D%221.1%22%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%221%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-11%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-2%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2216%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2225%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --tide-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22paperwave%22%20gradientUnits%3D%22userSpaceOnUse%22%20x2%3D%221600%22%3E%3Cstop%20stop-color%3D%22%23eb6d24%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23f38635%22%20stop-opacity%3D%22.24%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e77729%22%20stop-opacity%3D%22.5%22%2F%3E%3C%2FlinearGradient%3E%0A%3Cpath%20id%3D%22upper%22%20d%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3Canimate%20attributeName%3D%22d%22%20dur%3D%2219s%22%20repeatCount%3D%22indefinite%22%20calcMode%3D%22spline%22%20keyTimes%3D%220%3B.25%3B.5%3B.75%3B1%22%20keySplines%3D%22.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%22%20values%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%3BM-55%20149C106%20188%20179%20114%20315%20138S577%20202%20738%20134%20983%20100%201158%20154%201418%20241%201655%20157%3BM-55%20160C109%20198%20181%20174%20315%20154S580%20108%20738%20151%20980%20241%201158%20180%201420%20110%201655%20161%3BM-55%20170C110%20142%20182%20150%20315%20137S578%20152%20738%20183%20983%20191%201158%20162%201417%20145%201655%20145%3BM-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%2F%3E%3C%2Fpath%3E%3Cpath%20id%3D%22middle%22%20d%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3Canimate%20attributeName%3D%22d%22%20dur%3D%2223s%22%20repeatCount%3D%22indefinite%22%20calcMode%3D%22spline%22%20keyTimes%3D%220%3B.25%3B.5%3B.75%3B1%22%20keySplines%3D%22.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%3B.38%200%20.62%201%22%20values%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%3BM-55%20564C125%20618%20213%20509%20375%20535S623%20661%20802%20557%201013%20460%201183%20532%201422%20596%201655%20487%3BM-55%20568C125%20548%20213%20616%20375%20565S623%20460%20802%20530%201013%20659%201183%20553%201422%20441%201655%20526%3BM-55%20615C125%20602%20213%20525%20375%20533S623%20515%20802%20545%201013%20561%201183%20494%201422%20525%201655%20544%3BM-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%2F%3E%3C%2Fpath%3E%3C%2Fdefs%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23paperwave)%22%20stroke-width%3D%221.1%22%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%221%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-11%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-2%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2216%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2225%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   background-image: var(--tide-art);
   background-position: center;
   background-size: 100% 100%;
@@ -68,9 +68,9 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   --near-ring: clamp(12rem, 22vw, 21rem);
   --far-ring: clamp(11rem, 19vw, 18rem);
   --rings: radial-gradient(circle closest-side,
-    transparent 35%, #4079d645 35.4% 36%, transparent 36.4% 59%,
-    #4079d636 59.4% 60%, transparent 60.4% 82%,
-    #4079d624 82.4% 83%, transparent 83.4%);
+    transparent 35%, #eb772b45 35.4% 36%, transparent 36.4% 59%,
+    #eb772b36 59.4% 60%, transparent 60.4% 82%,
+    #eb772b24 82.4% 83%, transparent 83.4%);
   background-image: var(--rings), var(--rings);
   background-position: left -5rem top 28%, right -4rem top 67%;
   background-size: var(--near-ring) var(--near-ring), var(--far-ring) var(--far-ring);
@@ -89,41 +89,41 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   --ink: var(--ww-ink);
   --muted: var(--ww-muted);
   --accent: var(--ww-accent);
-  --surface: #f9fbfe;
-  --field: #f6f9fe;
+  --surface: #fffcf8;
+  --field: #fffaf5;
   --line: var(--ww-line);
   --glass: rgb(255 252 248 / 82%);
-  --shadow: 0 1px 2px #142a4e09, 0 14px 32px #2243780d;
+  --shadow: 0 1px 2px #56270c09, 0 14px 32px #8441160d;
   --display-font: "Bebas Neue", "Arial Narrow", Inter, sans-serif;
   --body-text-color: var(--ink);
   --body-text-color-subdued: var(--muted);
   --background-fill-primary: var(--surface);
-  --background-fill-secondary: var(--ww-mist);
+  --background-fill-secondary: var(--ww-peach);
   --border-color-primary: var(--line);
   --border-color-accent: var(--ww-focus);
-  --border-color-accent-subdued: #85a8e0;
+  --border-color-accent-subdued: #eda678;
   --block-background-fill: var(--surface);
   --block-border-color: var(--line);
   --block-title-text-color: var(--ink);
   --block-label-text-color: var(--muted);
-  --block-label-background-fill: var(--ww-mist);
+  --block-label-background-fill: var(--ww-peach);
   --block-label-border-color: var(--line);
   --input-background-fill: var(--field);
-  --input-background-fill-focus: #fbfdff;
+  --input-background-fill-focus: #fffdfb;
   --input-border-color: var(--line);
   --input-border-color-focus: var(--ww-focus);
-  --input-placeholder-color: #5a6473;
-  --color-accent: #1b5bc2;
-  --color-accent-soft: #dce8fb;
-  --neutral-50: #f6f9fe;
-  --neutral-100: #e7effc;
-  --neutral-200: #d5ddeb;
-  --neutral-300: #bdc9dd;
-  --neutral-400: #6e7d94;
-  --neutral-500: #546073;
-  --neutral-600: #505865;
-  --neutral-700: #404855;
-  --neutral-800: #30353d;
+  --input-placeholder-color: #766357;
+  --color-accent: #d94704;
+  --color-accent-soft: #ffead8;
+  --neutral-50: #fffaf5;
+  --neutral-100: #fff1e4;
+  --neutral-200: #eeded2;
+  --neutral-300: #e1cab9;
+  --neutral-400: #997c69;
+  --neutral-500: #775e50;
+  --neutral-600: #68564d;
+  --neutral-700: #58463d;
+  --neutral-800: #3f332e;
   --neutral-900: var(--ink);
   color: var(--ink);
   max-width: 1232px;
@@ -139,11 +139,11 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 
 #whisperwatch .page-frame { --block-padding: 0px; width: 100%; }
 
-/* Keep the eye-and-waveform mark and the condensed wordmark. */
+/* The brand board uses an orange eye and a condensed gradient wordmark. */
 .masthead, .wordmark { display: flex; align-items: center; }
 .masthead {
   min-height: 61px;
-  border-bottom: 1px solid #cdd6e6;
+  border-bottom: 1px solid #ead7c9;
   margin-bottom: 17px;
 }
 .masthead .home-button {
@@ -153,10 +153,10 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   width: 44px;
   height: 44px;
   margin-inline-start: auto;
-  border: 1px solid #1c5ac0;
+  border: 1px solid #d74b05;
   border-radius: 50%;
-  background: linear-gradient(140deg, #2062cd, #1951ac);
-  box-shadow: 0 3px 9px #2155ab38;
+  background: linear-gradient(140deg, #e65a07, #c13704);
+  box-shadow: 0 3px 9px #bf400d38;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .home-button svg { width: 21px; height: 21px; }
@@ -176,7 +176,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 .wordmark span {
   text-transform: uppercase;
-  background: linear-gradient(97deg, #1a54b3, #195cca 60%, #1756bc);
+  background: linear-gradient(97deg, #c93804, #e34f00 60%, #d37800);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -189,17 +189,17 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   align-items: center;
   min-height: 224px;
   padding: clamp(21px, 2.45vw, 32px) clamp(22px, 3.2vw, 42px);
-  border: 1px solid #b1c7ea;
+  border: 1px solid #f2c8a9;
   border-radius: 26px;
   background:
-    radial-gradient(ellipse at 75% 124%, #4f89e990, transparent 49%),
-    radial-gradient(ellipse at 96% 3%, #7da8ef, transparent 53%),
-    linear-gradient(110deg, #f4f8fe 23%, #e4edfc 51%, #bad1f7);
-  box-shadow: 0 12px 30px #29529511, inset 0 1px #f9fbfe;
+    radial-gradient(ellipse at 75% 124%, #ff8d3990, transparent 49%),
+    radial-gradient(ellipse at 96% 3%, #ffc16d, transparent 53%),
+    linear-gradient(110deg, #fffaf3 23%, #fff0e1 51%, #ffd2b2);
+  box-shadow: 0 12px 30px #a45a1a11, inset 0 1px #fffdf8;
 }
 .hero-copy { position: relative; z-index: 1; }
 .hero h1 {
-  color: #1b50a5;
+  color: #b83408;
   font-family: Inter, system-ui, sans-serif;
   font-weight: 760;
   font-size: clamp(38px, 5.2vw, 70px);
@@ -207,7 +207,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   letter-spacing: -.055em;
   margin: 0 0 12px;
 }
-.hero p { color: #3b4555; max-width: 380px; margin: 0; font-size: 14px; line-height: 1.55; }
+.hero p { color: #594137; max-width: 380px; margin: 0; font-size: 14px; line-height: 1.55; }
 
 .hero-visual {
   position: absolute;
@@ -215,8 +215,8 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   pointer-events: none;
   mask-image: linear-gradient(90deg, transparent, #000 26%);
   background-image:
-    radial-gradient(circle, #345a9830 1px, transparent 1.25px),
-    repeating-radial-gradient(circle at 70% 56%, transparent 0 33px, #f6f9fe86 34px 35px, transparent 36px 59px);
+    radial-gradient(circle, #a6482630 1px, transparent 1.25px),
+    repeating-radial-gradient(circle at 70% 56%, transparent 0 33px, #fffaf586 34px 35px, transparent 36px 59px);
   background-size: 18px 18px, 100% 100%;
 }
 .hero-visual::before {
@@ -224,15 +224,15 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   position: absolute;
   inset: 0 -9% -13% 5%;
   background:
-    radial-gradient(ellipse at 78% 29%, #1c68e378, transparent 42%),
-    radial-gradient(ellipse at 58% 82%, #407fe79c, transparent 56%);
+    radial-gradient(ellipse at 78% 29%, #ffa50078, transparent 42%),
+    radial-gradient(ellipse at 58% 82%, #ff72289c, transparent 56%);
   animation: glow-drift 14s ease-in-out infinite alternate;
 }
 .hero-visual::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20260%22%20preserveAspectRatio%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22wave%22%20x1%3D%220%25%22%20y1%3D%22100%25%22%20x2%3D%22100%25%22%20y2%3D%220%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%235e94eb%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%231c68e3%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231c68e3%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3Cpath%20id%3D%22trace%22%20d%3D%22M-30%20128C60%20164%20114%2052%20201%2070S302%20173%20390%20126%20520%2026%20670%2063%22%2F%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%20fill%3D%22url(%23wave)%22%20opacity%3D%22.24%22%20d%3D%22M-20%20172C83%2099%20141%20114%20213%20153S331%20255%20432%20171%20536%20106%20660%2085V270H-20Z%22%2F%3E%0A%20%20%3Cpath%20fill%3D%22url(%23wave)%22%20opacity%3D%22.39%22%20d%3D%22M-20%20231C55%20257%20124%20144%20223%20173S344%20258%20443%20193%20526%20153%20660%20125V270H-20Z%22%2F%3E%0A%20%20%3Cpath%20fill%3D%22%232a71e5%22%20opacity%3D%22.19%22%20d%3D%22M-20%20255C60%20245%20142%20202%20236%20211S361%20283%20457%20227%20578%20160%20660%20168V270H-20Z%22%2F%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23wave)%22%20stroke-width%3D%221.15%22%20opacity%3D%22.68%22%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%221%22%2F%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2225%22%2F%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%2233%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2241%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20fill%3D%22%232266d4%22%20opacity%3D%22.62%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22460%22%20cy%3D%2237%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22547%22%20cy%3D%2263%22%20r%3D%222.8%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22591%22%20cy%3D%22103%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22354%22%20cy%3D%22198%22%20r%3D%221.8%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22510%22%20cy%3D%22218%22%20r%3D%222.1%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E") center / 100% 100% no-repeat;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20260%22%20preserveAspectRatio%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22wave%22%20x1%3D%220%25%22%20y1%3D%22100%25%22%20x2%3D%22100%25%22%20y2%3D%220%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23ffb64a%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23ff8300%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff5500%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3Cpath%20id%3D%22trace%22%20d%3D%22M-30%20128C60%20164%20114%2052%20201%2070S302%20173%20390%20126%20520%2026%20670%2063%22%2F%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%20fill%3D%22url(%23wave)%22%20opacity%3D%22.24%22%20d%3D%22M-20%20172C83%2099%20141%20114%20213%20153S331%20255%20432%20171%20536%20106%20660%2085V270H-20Z%22%2F%3E%0A%20%20%3Cpath%20fill%3D%22url(%23wave)%22%20opacity%3D%22.39%22%20d%3D%22M-20%20231C55%20257%20124%20144%20223%20173S344%20258%20443%20193%20526%20153%20660%20125V270H-20Z%22%2F%3E%0A%20%20%3Cpath%20fill%3D%22%23ff6610%22%20opacity%3D%22.19%22%20d%3D%22M-20%20255C60%20245%20142%20202%20236%20211S361%20283%20457%20227%20578%20160%20660%20168V270H-20Z%22%2F%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23wave)%22%20stroke-width%3D%221.15%22%20opacity%3D%22.68%22%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%221%22%2F%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2225%22%2F%3E%0A%20%20%20%20%3Cuse%20href%3D%22%23trace%22%20y%3D%2233%22%2F%3E%3Cuse%20href%3D%22%23trace%22%20y%3D%2241%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20fill%3D%22%23ed5809%22%20opacity%3D%22.62%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22460%22%20cy%3D%2237%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22547%22%20cy%3D%2263%22%20r%3D%222.8%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22591%22%20cy%3D%22103%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22354%22%20cy%3D%22198%22%20r%3D%221.8%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22510%22%20cy%3D%22218%22%20r%3D%222.1%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E") center / 100% 100% no-repeat;
 }
 .signal {
   position: absolute;
@@ -243,21 +243,21 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   justify-content: space-between;
   gap: 2px;
   padding: 11px 16px;
-  border: 1px solid #eff4fdca;
+  border: 1px solid #fff9edca;
   border-radius: 19px;
-  background: linear-gradient(122deg, #f7fafe93, #e0eafb36);
+  background: linear-gradient(122deg, #fffdf693, #fff0dc36);
   backdrop-filter: blur(3px);
-  box-shadow: 10px 9px 0 -2px #e9f0fc51, 0 10px 34px #2a579f22, inset 0 1px #f8fafe80;
+  box-shadow: 10px 9px 0 -2px #fff4e651, 0 10px 34px #af481a22, inset 0 1px #fffdf780;
 }
-.signal::before { content: ""; position: absolute; inset-inline: 16px; height: 1px; background: #1a458c48; }
+.signal::before { content: ""; position: absolute; inset-inline: 16px; height: 1px; background: #9c390a48; }
 .signal i {
   height: var(--bar);
   width: 1.35%;
   border-radius: 9px;
-  background: linear-gradient(180deg, #528cea, #1c5fcc 52%, #4e89e9);
-  box-shadow: 0 1px 8px #3176e635, inset 0 1px #d7e4faab;
+  background: linear-gradient(180deg, #ffa23d, #e54e03 52%, #ff9a38);
+  box-shadow: 0 1px 8px #ff6c1835, inset 0 1px #fff5d2ab;
 }
-.signal i:nth-child(5n) { background: linear-gradient(180deg, #82abef, #194ea4 52%, #699bed); }
+.signal i:nth-child(5n) { background: linear-gradient(180deg, #ffc172, #b84505 52%, #ffb757); }
 
 
 .landing-cta {
@@ -267,11 +267,11 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   min-height: 44px;
   margin-top: 20px;
   padding: 9px 19px;
-  border: 1px solid #2466d2;
+  border: 1px solid #eb650b;
   border-radius: 999px;
   background: var(--ww-gradient);
-  box-shadow: 0 3px 12px #336ac437;
-  color: #09172d;
+  box-shadow: 0 3px 12px #d9511e37;
+  color: #321704;
   font-size: 14px;
   font-weight: 730;
   text-decoration: none;
@@ -291,7 +291,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 .landing-grid article {
   padding: clamp(16px, 2vw, 23px);
   border: 1px solid var(--line);
-  border-top-color: #84a6de;
+  border-top-color: #eba777;
   border-radius: 17px;
   background: var(--glass);
   backdrop-filter: blur(10px);
@@ -305,7 +305,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 .landing-grid p, .batch-info p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 
-#whisperwatch .batch-info { align-self: flex-start; border-top-color: #82a2d7; }
+#whisperwatch .batch-info { align-self: flex-start; border-top-color: #e3a676; }
 .batch-info h2 {
   display: flex;
   align-items: center;
@@ -337,8 +337,8 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   padding: 4px;
   border: 1px solid var(--line);
   border-radius: 15px;
-  background: #f3f7fed9;
-  box-shadow: 0 4px 15px #21447e0a;
+  background: #fff9f2d9;
+  box-shadow: 0 4px 15px #8b4c140a;
 }
 #workspace-tabs button[role="tab"] {
   min-height: 40px;
@@ -352,20 +352,20 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   font-weight: 680;
   transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 170ms ease;
 }
-#workspace-tabs button[role="tab"]:hover { background: #e5eefc; color: var(--accent); }
+#workspace-tabs button[role="tab"]:hover { background: #fff0e2; color: var(--accent); }
 #workspace-tabs button[aria-selected="true"] {
-  color: #173f80;
-  background: linear-gradient(125deg, #f2f6fd, #d4e3fa) padding-box,
-    linear-gradient(125deg, #6d98dd, #5484d3) border-box;
+  color: #8f2d08;
+  background: linear-gradient(125deg, #fff9f0, #ffe5cf) padding-box,
+    linear-gradient(125deg, #eda95d, #e57942) border-box;
   border-color: transparent;
-  box-shadow: inset 0 1px #fbfdff, 0 2px 5px #1e43800e;
+  box-shadow: inset 0 1px #fffdfb, 0 2px 5px #8e3b100e;
 }
 #workspace-tabs :is([aria-label="More tabs"], .overflow-menu > button) {
   min-height: 42px;
   min-width: 42px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #f3f7fe;
+  background: #fff9f2;
   color: var(--accent);
 }
 #workspace-tabs .overflow-dropdown {
@@ -393,9 +393,9 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   align-self: flex-start;
   min-height: 230px;
   background:
-    radial-gradient(ellipse at 103% 0, #a4c2f43f, transparent 58%),
+    radial-gradient(ellipse at 103% 0, #ffcb993f, transparent 58%),
     var(--glass);
-  border-top-color: #82a2d7;
+  border-top-color: #e3a676;
 }
 .panel-heading h2, .evaluation h2, .batch-results h2 {
   margin: 0;
@@ -412,27 +412,27 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   align-items: baseline;
   margin: 0;
   padding: 8px 11px;
-  border: 1px solid #bbcdea;
+  border: 1px solid #f1ceb4;
   border-radius: 9px;
-  background: #e4edfc;
-  color: #37455e;
+  background: #fff0e1;
+  color: #634431;
   font-size: 12px;
   line-height: 1.5;
 }
-.status i { flex: 0 0 6px; height: 6px; border-radius: 50%; background: #2155aa; }
-.status.warning { background: #e7effc; border-color: #8ba9db; color: #1b3e78; }
+.status i { flex: 0 0 6px; height: 6px; border-radius: 50%; background: #bd460e; }
+.status.warning { background: #fff0e4; border-color: #e6ab80; color: #85350e; }
 .status.success { background: #eff6ed; border-color: #c9dfc7; color: #30573c; }
 .status.success i { background: #42764b; }
 
 #recording, #batch-recordings {
   border-radius: 13px;
-  border-color: #adbed9;
-  background: #f6f9fe;
+  border-color: #dfbda7;
+  background: #fffaf5;
 }
 #whisperwatch :is(#recording, #batch-recordings) .upload-container {
   border-radius: 9px;
-  color: #3a4659;
-  background: radial-gradient(ellipse at 50% 40%, #d0e0f981, transparent 66%);
+  color: #5d4436;
+  background: radial-gradient(ellipse at 50% 40%, #ffe4ca81, transparent 66%);
   transition: background-color 160ms ease, color 160ms ease;
 }
 #recording .audio-container:has(.upload-container) { height: auto; }
@@ -442,18 +442,18 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 #whisperwatch :is(#recording, #batch-recordings) .upload-container:hover,
 #whisperwatch :is(#recording, #batch-recordings) .upload-container:focus-visible {
-  background-color: #e4edfc;
+  background-color: #fff0e1;
   color: var(--accent);
 }
 #whisperwatch :is(#recording, #batch-recordings) [data-testid="upload-icon"] {
   color: var(--accent);
 }
 #whisperwatch :is(#recording, #batch-recordings) .upload-container:focus-visible { outline-offset: -4px; }
-#recording [data-testid="source-select"] { background: #eff4fd; border-color: var(--line); }
+#recording [data-testid="source-select"] { background: #fff6ed; border-color: var(--line); }
 #recording [data-testid="source-select"] button { border-radius: 7px; }
 #recording [data-testid="source-select"] button:is(:hover, .selected) {
-  background: #dbe7fb;
-  color: #1e4a93;
+  background: #ffe9d7;
+  color: #a3380d;
 }
 
 #whisperwatch :is(input, textarea) { color: var(--ink); background: var(--field); }
@@ -476,28 +476,28 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   border-radius: 999px;
   transition: background-color 160ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
-#whisperwatch .reveal-button { color: #19407f; background: #ebf2fd; border: 1px solid #a1bbe4; }
-#whisperwatch .reveal-button:hover:not(:disabled) { background: #dbe7fb; }
+#whisperwatch .reveal-button { color: #8e300a; background: #fff4e9; border: 1px solid #edb998; }
+#whisperwatch .reveal-button:hover:not(:disabled) { background: #ffe9d7; }
 #whisperwatch .analyze-button {
-  color: #09172d;
+  color: #321704;
   background: var(--ww-gradient);
-  border: 1px solid #2466d2;
-  box-shadow: inset 0 1px #d3e2fa73, 0 4px 10px #336ac429;
+  border: 1px solid #eb650b;
+  box-shadow: inset 0 1px #fff5ce73, 0 4px 10px #d9511e29;
 }
 #whisperwatch .analyze-button:hover:not(:disabled) {
-  background: linear-gradient(110deg, #4b87e9, #3a7ce7 44%, #3979e2);
-  box-shadow: inset 0 1px #d3e2fa73, 0 7px 17px #336ac440;
+  background: linear-gradient(110deg, #ffb735, #ff8d22 44%, #fa6721);
+  box-shadow: inset 0 1px #fff5ce73, 0 7px 17px #d9511e40;
 }
-#whisperwatch .analyze-button:disabled { background: #dbe3f0; border-color: #cbd4e4; color: #555f6f; box-shadow: none; }
+#whisperwatch .analyze-button:disabled { background: #f3e4d8; border-color: #e8d4c7; color: #735e51; box-shadow: none; }
 #whisperwatch :is(.reveal-button, .analyze-button):active:not(:disabled) { transform: translateY(1px); }
-#whisperwatch .reference { background: #eff4fd; border: 1px solid var(--line); padding: 12px; border-radius: 11px; }
+#whisperwatch .reference { background: #fff6ed; border: 1px solid var(--line); padding: 12px; border-radius: 11px; }
 .reference-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: baseline; font-size: 13px; color: var(--muted); }
 .reference-meta strong { color: var(--ink); }
 
 .risk-heading, .scale-labels { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
-.panel-label { color: #2d3b52; font-size: 14px; font-weight: 720; }
+.panel-label { color: #573528; font-size: 14px; font-weight: 720; }
 .risk-value {
-  color: #173f80;
+  color: #8f2d08;
   font-size: clamp(44px, 5.7vw, 70px);
   font-weight: 740;
   letter-spacing: -.075em;
@@ -505,9 +505,9 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   margin: 14px 0 13px;
   font-variant-numeric: tabular-nums;
 }
-.risk-empty .risk-value { color: #597095; }
+.risk-empty .risk-value { color: #9e6950; }
 .risk-value small { font-size: 15px; font-weight: 550; color: var(--muted); letter-spacing: 0; white-space: nowrap; }
-.risk-track { border-radius: 10px; height: 9px; background: #d1dcef; overflow: hidden; }
+.risk-track { border-radius: 10px; height: 9px; background: #f3ddcd; overflow: hidden; }
 .risk-fill { height: 100%; border-radius: inherit; background: var(--ww-gradient); }
 .low .risk-fill { background: linear-gradient(90deg, #65a569, #408452); }
 .scale-labels { color: var(--muted); font-size: 11px; margin-top: 8px; }
@@ -517,25 +517,25 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   gap: 9px;
   border-radius: 10px;
   padding: 10px 12px;
-  background: #dbe7fb;
-  border: 1px solid #96b2e1;
-  color: #1a3d75;
+  background: #ffead7;
+  border: 1px solid #ecb58b;
+  color: #82310d;
   font-size: 13px;
   font-weight: 740;
   margin: 16px 0 9px;
 }
 .recommendation span { border: 1px solid currentColor; border-radius: 50%; width: 19px; height: 19px; font-size: 11px; display: inline-grid; place-items: center; line-height: 1; flex-shrink: 0; }
 .low .recommendation { color: #31543a; border-color: #c5dcc6; background: #edf6eb; }
-.guidance .recommendation { color: #1b3d74; background: linear-gradient(120deg, #eff4fd, #dbe7fa); border-color: #aec2e4; }
+.guidance .recommendation { color: #81320e; background: linear-gradient(120deg, #fff6ed, #ffe9d6); border-color: #ecc4a6; }
 
 .batch-list { padding: 0; margin: 13px 0 0; display: grid; gap: 10px; list-style: none; }
 .batch-clip { border: 1px solid var(--line); border-radius: 12px; background: var(--field); padding: 14px; }
-.batch-clip.selected { border-color: #81a3da; background: #e5eefc; box-shadow: inset 3px 0 var(--ww-blue); }
+.batch-clip.selected { border-color: #e6a375; background: #fff0e2; box-shadow: inset 3px 0 var(--ww-orange); }
 .batch-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 9px; }
 .batch-title h3 { font-size: 15px; line-height: 1.3; color: var(--ink); margin: 0; overflow-wrap: anywhere; }
 .batch-title > div { min-width: 0; }
 .batch-rank { font-size: 15px; font-weight: 720; color: var(--accent); }
-.pill.review { color: #1a3c74; background: #cbddf9; border: 1px solid #92b0e1; }
+.pill.review { color: #81320d; background: #ffdfc5; border: 1px solid #ecb287; }
 .batch-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 10px; margin: 12px 0; }
 .batch-scores dt { font-size: 12px; color: var(--muted); }
 .batch-scores dd { font-size: 14px; font-weight: 650; color: var(--ink); margin: 2px 0 0; font-variant-numeric: tabular-nums; }
@@ -553,7 +553,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   background: var(--field);
   overflow-wrap: anywhere;
 }
-.metric { display: grid; gap: 5px; background: linear-gradient(145deg, #f8fafe, #e6eefc); }
+.metric { display: grid; gap: 5px; background: linear-gradient(145deg, #fffcf7, #fff0e3); }
 .metric span { font-size: 13px; color: var(--muted); }
 .metric strong { font-size: clamp(21px, 3.3vw, 34px); color: var(--accent); font-variant-numeric: tabular-nums; }
 .metric small { color: var(--muted); font-size: 12px; }
@@ -562,9 +562,9 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 .eval-grid ul { margin: 2px 0 0; padding-left: 18px; color: var(--muted); }
 .budget-bar { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px; align-items: center; font-size: 11px; margin: 5px 0; }
 .budget-bar meter { width: 100%; accent-color: var(--accent); }
-.budget-bar meter::-webkit-meter-bar { background: #d6e0f0; border: 0; }
-.budget-bar meter::-webkit-meter-optimum-value { background: #2661c2; }
-.budget-bar:last-child meter::-webkit-meter-optimum-value { background: #556c92; }
+.budget-bar meter::-webkit-meter-bar { background: #f4e1d2; border: 0; }
+.budget-bar meter::-webkit-meter-optimum-value { background: #d84d10; }
+.budget-bar:last-child meter::-webkit-meter-optimum-value { background: #9b674c; }
 .matrix { width: 100%; margin-top: 10px; border-spacing: 4px; font-size: 12px; text-align: center; }
 .matrix th { font-weight: 570; color: var(--muted); }
 .matrix td { padding: 8px 3px; border-radius: 6px; font-variant-numeric: tabular-nums; }
@@ -576,17 +576,17 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 
 @media (hover: hover) {
-  .home-button:hover { transform: translateY(-2px); box-shadow: 0 5px 13px #2155ab55; }
+  .home-button:hover { transform: translateY(-2px); box-shadow: 0 5px 13px #bf400d55; }
   #workspace-tabs button[role="tab"]:hover { transform: scale(1.045); }
-  #whisperwatch .card:hover { border-color: #a8bad7; box-shadow: 0 17px 35px #22437816; }
+  #whisperwatch .card:hover { border-color: #ddbaa2; box-shadow: 0 17px 35px #84411616; }
   #whisperwatch :is(.reveal-button, .analyze-button):hover:not(:disabled) { transform: translateY(-1px); }
   #whisperwatch .rank-button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 0 19px #1c68e361, 0 9px 22px #336ac44d;
+    box-shadow: 0 0 19px #ff7a0061, 0 9px 22px #d9511e4d;
   }
   #whisperwatch .landing-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 19px #336ac44d;
+    box-shadow: 0 6px 19px #d9511e4d;
   }
 }
 
@@ -620,9 +620,9 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   width: 22px;
   height: 13px;
   background:
-    linear-gradient(var(--ww-blue), var(--ww-blue)) 0 45% / 4px 6px,
+    linear-gradient(var(--ww-orange), var(--ww-orange)) 0 45% / 4px 6px,
     linear-gradient(var(--ww-secondary), var(--ww-secondary)) 50% 65% / 4px 10px,
-    linear-gradient(var(--ww-blue), var(--ww-blue)) 100% 45% / 4px 6px;
+    linear-gradient(var(--ww-orange), var(--ww-orange)) 100% 45% / 4px 6px;
   background-repeat: no-repeat;
   pointer-events: none;
   animation: loading-wave 650ms ease-in-out infinite alternate;
@@ -668,7 +668,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .home-button { transition: none; transform: none !important; }
   .gradio-container::after {
-    --tide-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22paperwave%22%20gradientUnits%3D%22userSpaceOnUse%22%20x2%3D%221600%22%3E%3Cstop%20stop-color%3D%22%233a75d5%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%234a82de%22%20stop-opacity%3D%22.24%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233e76d2%22%20stop-opacity%3D%22.5%22%2F%3E%3C%2FlinearGradient%3E%0A%3Cpath%20id%3D%22upper%22%20d%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3C%2Fpath%3E%3Cpath%20id%3D%22middle%22%20d%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3C%2Fpath%3E%3C%2Fdefs%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23paperwave)%22%20stroke-width%3D%221.1%22%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%221%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-11%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-2%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2216%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2225%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --tide-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22paperwave%22%20gradientUnits%3D%22userSpaceOnUse%22%20x2%3D%221600%22%3E%3Cstop%20stop-color%3D%22%23eb6d24%22%20stop-opacity%3D%22.48%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23f38635%22%20stop-opacity%3D%22.24%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e77729%22%20stop-opacity%3D%22.5%22%2F%3E%3C%2FlinearGradient%3E%0A%3Cpath%20id%3D%22upper%22%20d%3D%22M-55%20159C109%20159%20169%20107%20315%20118S579%20236%20738%20174%20983%2091%201158%20166%201418%20235%201655%20141%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3C%2Fpath%3E%3Cpath%20id%3D%22middle%22%20d%3D%22M-55%20601C125%20664%20213%20494%20375%20497S623%20641%20802%20573%201013%20402%201183%20491%201422%20631%201655%20506%22%20vector-effect%3D%22non-scaling-stroke%22%3E%3C%2Fpath%3E%3C%2Fdefs%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23paperwave)%22%20stroke-width%3D%221.1%22%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-15%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%22-7%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%221%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%229%22%2F%3E%3Cuse%20href%3D%22%23upper%22%20y%3D%2217%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-11%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%22-2%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%227%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2216%22%2F%3E%3Cuse%20href%3D%22%23middle%22%20y%3D%2225%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   }
   #whisperwatch::before { animation: none; }
   #whisperwatch :is(.masthead, .hero, #workspace-tabs, .risk-card, .batch-results, .status.success, .eval-grid section, .batch-clip, .app-footer, .card, .analyze-button, .reveal-button, .landing-cta, .upload-container, [role="tab"]),
