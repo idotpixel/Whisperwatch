@@ -1,0 +1,194 @@
+{
+  "source": "LibriSpeech (OpenSLR SLR12, CC BY 4.0); recorded live Whisper outputs from whisperwatch-live-validation-results.zip. Ten evenly spaced original boosted-score order statistics for smoke coverage only.",
+  "source_url": "https://www.openslr.org/12/",
+  "clips": [
+    {
+      "clip_id": "openslr/librispeech_asr/5683-32879-0002",
+      "duration_s": 11.085,
+      "transcript": "so there came a step and a little rustling of feminine draperies the small door opened and rachel entered with her hand extended and a pale smile of welcome",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 11.08,
+          "text": " so there came a step and a little rustling of feminine draperies the small door opened and rachel entered with her hand extended and a pale smile of welcome",
+          "avg_logprob": -0.006750158210461204,
+          "no_speech_prob": 0.00018966197967529297,
+          "compression_ratio": 1.4181818181818182,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.0013884242755783137
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/3997-180297-0025",
+      "duration_s": 6.77,
+      "transcript": "marguerite drew the letter from her bosom and handing it to me with a smile of infinite sweetness said",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.78,
+          "text": " marguerite drew the letter from her bosom and handing it to me with a smile of infinite sweetness said",
+          "avg_logprob": -0.023980034722222224,
+          "no_speech_prob": 0.00015592575073242188,
+          "compression_ratio": 1.2439024390243902,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.005400979557263995
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/7975-280063-0007",
+      "duration_s": 3.445,
+      "transcript": "We were out of ammunition and were helpless had the fight been pressed.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.0,
+          "text": " We were out of ammunition and were helpless had the fight been pressed.",
+          "avg_logprob": -0.0724954044117647,
+          "no_speech_prob": 0.0140533447265625,
+          "compression_ratio": 1.0289855072463767,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.018378917987081748
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/6128-63240-0025",
+      "duration_s": 8.905,
+      "transcript": "he observed that miss chancellor's hand was at once cold and limp she merely placed it in his without exerting the smallest pressure",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.9,
+          "text": " he observed that miss chancellor's hand was at once cold and limp she merely placed it in his without exerting the smallest pressure",
+          "avg_logprob": -0.07603236341050693,
+          "no_speech_prob": 0.0012493133544921875,
+          "compression_ratio": 1.2941176470588236,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.048385878313115395
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/3570-5694-0013",
+      "duration_s": 5.61,
+      "transcript": "This differentiation is furthered by the inheritance of wealth and the consequent inheritance of gentility.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.08,
+          "text": " This differentiation is furthered by the inheritance of wealth",
+          "avg_logprob": -0.09765624813735485,
+          "no_speech_prob": 0.0260162353515625,
+          "compression_ratio": 1.2588235294117647,
+          "temperature": 0.0
+        },
+        {
+          "start": 3.08,
+          "end": 5.18,
+          "text": " and the consequent inheritance of gentility.",
+          "avg_logprob": -0.09765624813735485,
+          "no_speech_prob": 0.0260162353515625,
+          "compression_ratio": 1.2588235294117647,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.07968101142436816
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/7018-75789-0009",
+      "duration_s": 10.75,
+      "transcript": "I answered, For Allah's sake, O my lord, e'er I speak give me somewhat to eat, for I am starving, and after ask me what thou wilt.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 10.14,
+          "text": " I answered, For Allah's sake, O my lord, e'er I speak give me somewhat to eat, for I am starving, and after ask me what thou wilt.",
+          "avg_logprob": -0.11057692231276096,
+          "no_speech_prob": 0.0297088623046875,
+          "compression_ratio": 1.1818181818181819,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.11193459204421816
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/1688-142285-0078",
+      "duration_s": 2.69,
+      "transcript": "Have you met with a servant, dear?",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.24,
+          "text": " Have you met with a servant, dear?",
+          "avg_logprob": -0.18440755208333334,
+          "no_speech_prob": 0.00295257568359375,
+          "compression_ratio": 0.8095238095238095,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.1762734361841307
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/7021-79740-0002",
+      "duration_s": 9.225,
+      "transcript": "Now Delia contrived to obtain a great influence and ascendancy over the minds of the children by means of these dolls",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.48,
+          "text": " Now Delia contrived to obtain a great influence and ascendancy over the minds of the children by means of these dolls",
+          "avg_logprob": -0.15429687553218432,
+          "no_speech_prob": 0.0077362060546875,
+          "compression_ratio": 1.2580645161290323,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.24035162763759899
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/5142-33396-0037",
+      "duration_s": 3.575,
+      "transcript": "Hawkin there shall be your constant companion, friend farmer.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.36,
+          "text": " Hawkin there shall be your constant companion, friend farmer.",
+          "avg_logprob": -0.3161458373069763,
+          "no_speech_prob": 0.0009694099426269531,
+          "compression_ratio": 0.9104477611940298,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.40171685655012274
+    },
+    {
+      "clip_id": "openslr/librispeech_asr/2094-142345-0015",
+      "duration_s": 15.015,
+      "transcript": "to all appearance molly had got through her after-dinner work in an exemplary manner had cleaned herself with great despatch and now came to ask submissively if she should sit down to her spinning till milking-time you",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 15.0,
+          "text": " to all appearance molly had got through her after-dinner work in an exemplary manner had cleaned herself with great despatch and now came to ask submissively if she should sit down to her spinning till milking-time",
+          "avg_logprob": -0.04361979298147501,
+          "no_speech_prob": 0.0018100738525390625,
+          "compression_ratio": 1.4266666666666667,
+          "temperature": 0.0
+        },
+        {
+          "start": 15.0,
+          "end": 17.0,
+          "text": " you",
+          "avg_logprob": -0.98583984375,
+          "no_speech_prob": 0.330810546875,
+          "compression_ratio": 0.2727272727272727,
+          "temperature": 0.0
+        }
+      ],
+      "expected_score": 0.9967752010603246
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "source_archives_sha256": {
+    "whisperwatch-boosted-results.zip": "48917a3013987254565b523c64d32c522b0947bd3c44ee9af750dd71740c52b3",
+    "whisperwatch-ensemble-speaker-split-results.zip": "4f529d6f938ad092a6c947548bce63cbc264c9e5690e3a4c1f76e84b0f468e81",
+    "whisperwatch-live-validation-results.zip": "aca636c010e8e5a2037f6b3892ac936221dec1ccd9a0e105a6b0cbbcfe2e8313",
+    "whisperwatch-live-retraining-results.zip": "c573f239e07a0b0708aed7a2721e7ceefabe1dc89bac0278a33b15f1ff0b76ec",
+    "whisperwatch-audio-aware-results.zip": "3ab9a7f71686a49697b3a11f31af2978aa7ed85361d58555e14174ca01adbf99"
+  },
+  "english_development_parquet_sha256": "8464af2385827d6198801b1c949cb2918dd3d5096360a3d445310ab56498739f"
+}
