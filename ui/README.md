@@ -39,7 +39,7 @@ Open the Gradio share URL printed in the cell. As a standalone entry point, `pyt
 - **Replay:** Seven handpicked historical cases display both saved review decisions at the original 20% budget, the hybrid priority, classifier risk, Whisper transcription, human reference, and measured WER. Common Voice cases come from the development set.
 - **Benchmarks:** The table uses all 18 rows in Member C’s `verified_experiments.json`. Its F1 column is derived from verified counts. The four PNGs are the original charts from Member C’s frontend handoff. The budget sweep CSV is included alongside them. The summary names the two holdouts with explicit random baselines.
 
-The benchmark tab uses the verified assets packaged in `assets/verified/`. If they are missing, it looks in `team_handoff/for_member_b_frontend_ui/` and then `reports/`. Use `--replay PATH` for a different replay export, including the original `assets/verified/frontend_examples.json`. Use `--evaluation PATH` to override the benchmark data. Keep `figures/` and `dataset_limitations.json` beside a custom `verified_experiments.json` file.
+The benchmark tab uses the verified assets packaged in `assets/verified/`. If they are missing, it looks in `team_handoff/for_member_b_frontend_ui/` and then `reports/`. Use `--replay PATH` for a different replay export. Use `--evaluation PATH` to override the benchmark data. Keep `figures/` and `dataset_limitations.json` beside a custom `verified_experiments.json` file.
 
 ## Verify the historical cases
 

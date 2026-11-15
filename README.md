@@ -39,7 +39,7 @@ python -m pip install "gradio==5.50.0"
 python app.py
 ```
 
-Open the address printed in your terminal and select **Open Workspace**. **Dataset Replay** and **Model Evaluation** use the examples and results included here. Live transcription uses Whisper Large V3 and the trained classifier. The [setup guide](ui/README.md#google-colab-with-the-live-models) explains how to run the live demo in Colab with the team’s model bundle.
+Open the address printed in your terminal and select **Open Workspace**. **Dataset Replay** and **Model Evaluation** run with the examples and verified results included here. Live transcription requires Whisper Large V3 and the team’s separately supplied, checksum-verified classifier. The [Colab setup guide](ui/README.md#google-colab-with-the-live-models) documents that setup.
 
 ## Credits
 
