@@ -250,12 +250,9 @@ def replay_tab(path):
                     f"Illustrative historical cases handpicked to show different outcomes. {escape(replay.source)}.",
                 ))
                 with gr.Row():
-                    dataset = gr.Dropdown(
-                        list(grouped), value=first.dataset, label="Dataset", interactive=True, filterable=False,
-                    )
-                    clip = gr.Dropdown(
-                        grouped[first.dataset], value=first.clip_id, label="Historical clip",
-                        interactive=True, filterable=False,
+                    dataset = gr.Radio(list(grouped), value=first.dataset, label="Dataset", interactive=True)
+                    clip = gr.Radio(
+                        grouped[first.dataset], value=first.clip_id, label="Historical clip", interactive=True,
                     )
                 transcript = gr.Textbox(
                     first.whisper_text, label="Generated Whisper Transcription",
