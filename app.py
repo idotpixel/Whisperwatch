@@ -243,17 +243,18 @@ def replay_tab(path):
             first_id = choices[0][1]
             return gr.update(choices=choices, value=first_id), *select_clip(first_id)
 
-        with gr.Row(elem_classes="workspace-grid"):
-            with gr.Column(scale=7, min_width=310, elem_classes="card"):
-                gr.HTML(panel_heading(
-                    "Dataset Replay & Historical Case Studies",
-                    f"Illustrative historical cases handpicked to show different outcomes. {escape(replay.source)}.",
-                ))
-                with gr.Row():
-                    dataset = gr.Radio(list(grouped), value=first.dataset, label="Dataset", interactive=True)
-                    clip = gr.Radio(
-                        grouped[first.dataset], value=first.clip_id, label="Historical clip", interactive=True,
-                    )
+        with gr.Column(elem_classes="card"):
+            gr.HTML(panel_heading(
+                "Dataset Replay & Historical Case Studies",
+                f"Illustrative historical cases handpicked to show different outcomes. {escape(replay.source)}.",
+            ))
+            with gr.Row():
+                dataset = gr.Radio(list(grouped), value=first.dataset, label="Dataset", interactive=True)
+                clip = gr.Radio(
+                    grouped[first.dataset], value=first.clip_id, label="Historical clip", interactive=True,
+                )
+            assessment = gr.HTML(replay_assessment(first))
+            with gr.Row(elem_classes="workspace-grid"):
                 transcript = gr.Textbox(
                     first.whisper_text, label="Generated Whisper Transcription",
                     lines=3, max_lines=8, interactive=False, elem_classes="transcript",
@@ -262,13 +263,11 @@ def replay_tab(path):
                     first.human_text, label="Human Reference Transcript",
                     lines=3, max_lines=8, interactive=False, elem_classes="transcript",
                 )
-                gr.HTML(
-                    '<p class="muted">WER measures word-level differences and can penalize harmless '
-                    'variations in phrasing, filler words, and contractions. A high WER does not '
-                    'always indicate a meaningful loss of information.</p>'
-                )
-            with gr.Column(scale=4, min_width=280, elem_classes="card"):
-                assessment = gr.HTML(replay_assessment(first))
+            gr.HTML(
+                '<p class="muted">WER measures word-level differences and can penalize harmless '
+                'variations in phrasing, filler words, and contractions. A high WER does not '
+                'always indicate a meaningful loss of information.</p>'
+            )
 
         replay_outputs = [transcript, reference, assessment]
         dataset.change(

@@ -81,12 +81,30 @@ def replay_assessment(example):
     card = score_card(example.risk_score, example.recommend_review, title=title,
                       recommendation=decision, description=description)
     truth = "High WER" if example.true_high_error else "Within WER cutoff"
-    outcome = {
-        (True, True): "True positive",
-        (True, False): "False negative",
-        (False, True): "False positive",
-        (False, False): "True negative",
+    outcome, headline, takeaway = {
+        (True, True): (
+            "True positive", "High-error transcript flagged",
+            "The transcript had a high word error rate and was selected for review.",
+        ),
+        (True, False): (
+            "False negative", "High-error transcript missed",
+            "The transcript had a high word error rate but stayed out of the review queue.",
+        ),
+        (False, True): (
+            "False positive", "WhisperWatch limitation · False alarm",
+            "This clip used a review slot even though its word error rate was within the study’s cutoff.",
+        ),
+        (False, False): (
+            "True negative", "Lower-error transcript left unflagged",
+            "The word error rate was within the study’s cutoff and the clip stayed out of the review queue.",
+        ),
     }[example.true_high_error, example.recommend_review]
+    tone = "correct" if example.true_high_error == example.recommend_review else "error"
+    if outcome == "False positive" and example.wer == 0:
+        takeaway = (
+            "The transcript matches every word in the human reference (0% word error rate). "
+            "WhisperWatch still flagged it for review."
+        )
     native_decision = ""
     budget = ""
     disagreement = ""
@@ -101,24 +119,28 @@ def replay_assessment(example):
         f"<div><dt>WHISPERWATCH classifier risk</dt><dd>{example.classifier_risk:.3f}</dd></div>"
         if example.classifier_risk is not None else ""
     )
-    notes = f"""<div class="case-note"><h3>{escape(example.case_title or 'Case Note')}</h3>
-        <p>{escape(example.notes)}</p>
-        <p style="overflow-wrap:anywhere">Clip ID: {escape(example.clip_id)}</p></div>"""
-    limitation = ""
-    if example.recommend_review and example.wer == 0:
-        limitation = """<aside class="replay-limitation" aria-label="WhisperWatch limitation">
-          <h3>WhisperWatch limitation · False alarm</h3>
-          <p>The transcript matches every word in the human reference (0% word error rate).
-            WhisperWatch still flagged it for review.</p>
-        </aside>"""
-    return f"""{limitation}{card}{budget}<dl class="case-outcomes">
-      <div><dt>Ground-truth WER</dt><dd>{example.wer:.1%}</dd></div>
-      <div><dt>True Error Status</dt><dd>{truth}</dd></div>
-      <div><dt>{'Hybrid outcome' if has_hybrid else 'Recorded outcome'}</dt><dd>{outcome}{disagreement}</dd></div>
-      {native_decision}
-      {classifier}
-      <div><dt>Whisper mean log probability</dt><dd>{confidence_text(example.avg_logprob)}</dd></div>
-    </dl>{notes}"""
+    explanation = (
+        f'<div class="replay-explanation"><h3>What happened</h3><p>{escape(example.notes)}</p></div>'
+        if example.notes else ""
+    )
+    return f"""<section class="replay-verdict {tone}" aria-label="Replay outcome">
+      <h3>{headline}</h3>
+      <p><strong>{outcome}</strong> · {takeaway}</p>
+    </section>
+    {explanation}
+    <details class="replay-details">
+      <summary>Show scores and evaluation details</summary>
+      {card}{budget}
+      <dl class="case-outcomes">
+        <div><dt>Ground-truth WER</dt><dd>{example.wer:.1%}</dd></div>
+        <div><dt>True Error Status</dt><dd>{truth}</dd></div>
+        <div><dt>{'Hybrid outcome' if has_hybrid else 'Recorded outcome'}</dt><dd>{outcome}{disagreement}</dd></div>
+        {native_decision}
+        {classifier}
+        <div><dt>Whisper mean log probability</dt><dd>{confidence_text(example.avg_logprob)}</dd></div>
+      </dl>
+      <p class="muted replay-clip-id">Clip ID: {escape(example.clip_id)}</p>
+    </details>"""
 
 
 def ranked_batch(rows, filenames):

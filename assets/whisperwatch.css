@@ -686,16 +686,26 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 }
 
 /* Research panels and historical cases */
-#whisperwatch .replay-limitation {
-  margin: 0 0 14px;
-  padding: 12px 14px;
-  border: 1px solid #dba7ad;
+.replay-verdict {
+  padding: 16px 18px;
+  border: 1px solid #b7dece;
   border-radius: 12px;
+  background: #eaf7f1;
+  color: #176047;
+}
+.replay-verdict.error {
+  border-color: #dba7ad;
   background: #fff0f1;
   color: #8e2737;
 }
-.replay-limitation h3 { margin: 0 0 4px; font-size: 15px; }
-.replay-limitation p { margin: 0; font-size: 13px; line-height: 1.5; }
+.replay-verdict h3 { margin: 0 0 5px; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.2; }
+.replay-explanation { margin-top: 14px; }
+.replay-explanation h3 { margin: 0 0 4px; font-size: 17px; color: var(--ink); }
+.replay-verdict p, .replay-explanation p { max-width: 72ch; margin: 0; font-size: 15px; line-height: 1.55; }
+.replay-details { margin-top: 12px; }
+.replay-details summary { color: var(--accent); cursor: pointer; font-weight: 650; }
+.replay-details .risk-card { margin-top: 12px; }
+.replay-clip-id { overflow-wrap: anywhere; }
 #whisperwatch .risk-card.warning .recommendation {
   border-color: #dba7ad;
   background: #fff0f1;
@@ -704,12 +714,12 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
 #whisperwatch .risk-card.warning .risk-fill { background: linear-gradient(90deg, #f4999d, #bb435a); }
 #whisperwatch .risk-card.low .recommendation { background: #eaf7f1; color: #176047; border-color: #b7dece; }
 #whisperwatch .risk-card.low .risk-fill { background: linear-gradient(90deg, #73bba3, #258267); }
-.cutoff-note, .confidence-breakdown, .case-outcomes, .case-note { margin-top: 14px; }
-.confidence-breakdown, .case-note {
+.cutoff-note, .confidence-breakdown, .case-outcomes { margin-top: 14px; }
+.confidence-breakdown {
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
-.confidence-breakdown h3, .case-note h3 { margin: 0 0 7px; font-size: 15px; }
+.confidence-breakdown h3 { margin: 0 0 7px; font-size: 15px; }
 .confidence-breakdown dl, .case-outcomes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -731,8 +741,7 @@ gradio-app .nav-holder, gradio-app footer:not(.app-footer) { display: none; }
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
-.confidence-breakdown small, .case-note p { color: var(--muted); font-size: 12px; line-height: 1.5; }
-.case-note p { margin: 5px 0; }
+.confidence-breakdown small { color: var(--muted); font-size: 12px; line-height: 1.5; }
 .benchmark-summary, .caveat-details {
   padding: 13px 16px;
   border: 1px solid var(--line);
