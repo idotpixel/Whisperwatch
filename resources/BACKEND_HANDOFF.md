@@ -4,7 +4,7 @@ WhisperWatch helps subtitle editors choose what to check first. The user uploads
 
 ## Connect the backend
 
-Run `notebooks/backend_colab.ipynb` in a hosted T4 GPU runtime. The notebook installs the backend from GitHub and verifies the classifier from the ZIP supplied by the team. For local setup, install `requirements-live.txt` and run `python -m src.setup_demo /path/to/model.zip` from the repository root.
+Run `notebooks/backend_colab.ipynb` in a hosted T4 GPU runtime. The notebook installs the backend from GitHub and verifies the classifier from the model-only release. For local setup, install `requirements-live.txt` and run `python -m src.setup_demo` from the repository root.
 
 The live backend uses Python, pandas 2.2.3, scikit-learn 1.8.0, joblib 1.5.3, faster-whisper 1.2.1, CTranslate2 4.9.0, PyAV 16.0.1 and Hugging Face Hub 1.32.0. The T4 path also needs CUDA 12 cuBLAS and cuDNN 9. The first live request downloads and caches about 3.1 GB of pinned Large V3 weights. Gradio is part of the UI environment. Install it using Member B’s frontend setup when integrated. [Large V3 weights](https://huggingface.co/Systran/faster-whisper-large-v3) · [CUDA requirements](https://github.com/SYSTRAN/faster-whisper#gpu)
 

@@ -44,14 +44,15 @@ We evaluated English speech without separate accent results. We’d test across 
 
 ## Try the interface
 
-Run **Dataset Replay** and **Model Evaluation** from any checkout with Python 3.12.
+For live audio uploads, use Python 3.12 from the repository folder.
 
 ```bash
-python -m pip install "gradio==5.50.0"
+python -m pip install -r requirements-live.txt
+python -m src.setup_demo
 python app.py
 ```
 
-Live uploads use the team’s verified classifier ZIP. With that file, you can [run the full app locally](ui/README.md#live-audio-uploads) or [launch it on a Colab T4 GPU](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb). The Colab host uploads the model once. People visiting the Gradio link can then upload audio from their browsers.
+Setup downloads and checks our [trained classifier](https://github.com/idotpixel/Whisperwatch/releases/tag/demo-model-v1). Open the address printed by Gradio, select **Open Workspace**, and upload an English clip up to 30 seconds. The first live request also downloads about 3.1 GB of Whisper weights. You can [run the same demo on a Colab T4 GPU](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb) or use the [lighter setup for replay and charts](ui/README.md#replay-and-benchmarks-only).
 
 ## Credits
 
