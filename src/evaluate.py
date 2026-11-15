@@ -23,11 +23,13 @@ Key capabilities:
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 import pandas as pd
+from scipy.stats import binomtest
 from sklearn.metrics import (
     average_precision_score,
     confusion_matrix,
@@ -210,7 +212,115 @@ def evaluate_classification_metrics(
 
 
 # ---------------------------------------------------------------------------
-# 2. Review-Budget Prioritization
+# 2. Hybrid Risk Score and Paired Comparisons
+# ---------------------------------------------------------------------------
+
+def compute_hybrid_risk(
+    df: pd.DataFrame,
+    classifier_risk_col: str = "classifier_risk",
+    avg_logprob_col: str = "avg_logprob",
+    missing_confidence_val: float = float("-inf"),
+) -> pd.Series:
+    """Compute 50/50 percentile hybrid risk score.
+
+    Combines:
+    1. Native risk: -avg_logprob with missing confidence ranked first (highest priority).
+    2. Classifier risk: classifier_risk ranked ascending.
+    Percentile ranks computed using average ties (pct=True).
+    Hybrid risk is the unweighted mean of the two percentiles.
+
+    Args:
+        df: Input DataFrame.
+        classifier_risk_col: Column name for classifier risk score.
+        avg_logprob_col: Column name for Whisper avg_logprob.
+        missing_confidence_val: Fill value for avg_logprob before negation.
+            Default float("-inf") negates to +inf, giving missing confidence rank 1.0.
+
+    Returns:
+        pd.Series containing computed hybrid risk scores in range [0.0, 1.0].
+    """
+    if df.empty:
+        return pd.Series(dtype=float)
+
+    if classifier_risk_col not in df.columns:
+        raise KeyError(f"Classifier risk column '{classifier_risk_col}' not found in DataFrame.")
+    if avg_logprob_col not in df.columns:
+        raise KeyError(f"Whisper logprob column '{avg_logprob_col}' not found in DataFrame.")
+
+    native = -df[avg_logprob_col].fillna(missing_confidence_val)
+    pct_native = native.rank(method="average", pct=True)
+    pct_classifier = df[classifier_risk_col].rank(method="average", pct=True)
+
+    return (pct_native + pct_classifier) / 2.0
+
+
+def compute_paired_comparison(
+    df: pd.DataFrame,
+    method_a_review_col: str,
+    method_b_review_col: str,
+    true_col: str = "true_high_error",
+) -> Dict[str, Any]:
+    """Compute discordant pair analysis and exact binomial test for two review selections.
+
+    Compares two methods on the identical population of high-error transcripts:
+    - n_both (both caught)
+    - n_a_only (Method A caught, Method B missed)
+    - n_b_only (Method B caught, Method A missed)
+    - n_neither (neither caught)
+    - p_value: Two-sided exact binomial test on discordant pairs.
+    """
+    if df.empty or true_col not in df.columns:
+        return {
+            "n_high_error": 0,
+            "both_caught": 0,
+            "a_only_caught": 0,
+            "b_only_caught": 0,
+            "neither_caught": 0,
+            "net_difference": 0,
+            "p_value": 1.0,
+        }
+
+    high_err = df[df[true_col] == 1]
+    n_he = len(high_err)
+    if n_he == 0:
+        return {
+            "n_high_error": 0,
+            "both_caught": 0,
+            "a_only_caught": 0,
+            "b_only_caught": 0,
+            "neither_caught": 0,
+            "net_difference": 0,
+            "p_value": 1.0,
+        }
+
+    a_flag = high_err[method_a_review_col].astype(bool)
+    b_flag = high_err[method_b_review_col].astype(bool)
+
+    both = int((a_flag & b_flag).sum())
+    a_only = int((a_flag & (~b_flag)).sum())
+    b_only = int(((~a_flag) & b_flag).sum())
+    neither = int(((~a_flag) & (~b_flag)).sum())
+
+    total_discordant = a_only + b_only
+    if total_discordant > 0:
+        res = binomtest(b_only, total_discordant, 0.5)
+        p_val = float(res.pvalue)
+    else:
+        p_val = 1.0
+
+    return {
+        "n_high_error": n_he,
+        "both_caught": both,
+        "a_only_caught": a_only,
+        "b_only_caught": b_only,
+        "neither_caught": neither,
+        "net_difference": b_only - a_only,
+        "p_value": p_val,
+    }
+
+
+# ---------------------------------------------------------------------------
+# 3. Review-Budget Prioritization
 # ---------------------------------------------------------------------------
 
 def evaluate_review_budget(
@@ -221,15 +331,21 @@ def evaluate_review_budget(
     true_col: str = "true_high_error",
     wer_col: Optional[str] = "wer",
     wer_threshold: float = DEFAULT_WER_THRESHOLD,
+    rounding: str = "round",
+    budget_count: Optional[int] = None,
+    tie_break_col: Optional[str] = "clip_id",
+    na_position: str = "last",
 ) -> Dict[str, Any]:
     """Simulate a review-budget scenario for a given prioritization column.
 
     A reviewer has capacity to inspect a fixed fraction `budget` (e.g. 20%)
-    of clips. Clips are ranked by `priority_col`.
+    of clips, or an explicit count `budget_count`. Clips are ranked by `priority_col`.
 
     Direction handling:
     - For `risk_score` (higher = higher error risk): ascending=False
     - For `avg_logprob` (lower = lower confidence = higher error risk): ascending=True
+    - Missing confidence handling: if na_position='first', missing values are placed
+      first in the priority queue.
 
     Args:
         df: DataFrame containing the records.
@@ -240,6 +356,10 @@ def evaluate_review_budget(
         true_col: Column containing ground truth high-error binary flag (0 or 1).
         wer_col: Optional column containing raw WER to derive true_col if needed.
         wer_threshold: Threshold to define high error (WER > wer_threshold).
+        rounding: Rounding method ('round', 'ceil', 'floor').
+        budget_count: Explicit number of clips to review (overrides budget fraction).
+        tie_break_col: Secondary sort column for deterministic tie-breaking.
+        na_position: 'last' or 'first' for NaN scores.
 
     Returns:
         Dictionary with review budget evaluation metrics:
@@ -282,8 +402,11 @@ def evaluate_review_budget(
     if priority_col not in work_df.columns:
         raise KeyError(f"Priority column '{priority_col}' not found in DataFrame.")
 
-    # Remove rows with NaN in priority_col or true_col
-    valid_mask = work_df[priority_col].notna() & work_df[true_col].notna()
+    # Drop NaNs based on na_position
+    if na_position == "first":
+        valid_mask = work_df[true_col].notna()
+    else:
+        valid_mask = work_df[priority_col].notna() & work_df[true_col].notna()
     work_df = work_df[valid_mask]
 
     n_total = len(work_df)
@@ -300,15 +423,27 @@ def evaluate_review_budget(
             "lift_over_random": 1.0,
         }
 
-    # Determine number of clips to review (at least 1 if budget > 0 and n_total > 0)
-    k = int(round(n_total * budget))
+    # Determine number of clips to review
+    if budget_count is not None:
+        k = max(0, min(n_total, int(round(budget_count))))
+    elif rounding == "ceil":
+        k = int(math.ceil(n_total * budget))
+    elif rounding == "floor":
+        k = int(math.floor(n_total * budget))
+    else:
+        k = int(round(n_total * budget))
     k = max(0, min(n_total, k))
 
     total_high_error = int(work_df[true_col].sum())
 
-    # Sort clips by priority
-    # Note: stable sort (mergesort) to avoid nondeterministic tie reordering
-    sorted_df = work_df.sort_values(by=priority_col, ascending=ascending, kind="mergesort")
+    # Deterministic sorting
+    sort_cols = [priority_col]
+    asc_list = [ascending]
+    if tie_break_col and tie_break_col in work_df.columns and tie_break_col != priority_col:
+        sort_cols.append(tie_break_col)
+        asc_list.append(True)
+
+    sorted_df = work_df.sort_values(by=sort_cols, ascending=asc_list, na_position=na_position, kind="mergesort")
 
     # Select top K
     reviewed = sorted_df.iloc[:k]
@@ -319,8 +454,9 @@ def evaluate_review_budget(
         (high_error_caught / total_high_error) if total_high_error > 0 else 0.0
     )
     precision_at_budget = (high_error_caught / k) if k > 0 else 0.0
+    effective_budget = (k / n_total) if n_total > 0 else budget
     lift_over_random = (
-        (recall_at_budget / budget) if (budget > 0 and total_high_error > 0) else 1.0
+        (recall_at_budget / effective_budget) if (effective_budget > 0 and total_high_error > 0) else 1.0
     )
 
     return {
@@ -337,7 +473,7 @@ def evaluate_review_budget(
 
 
 # ---------------------------------------------------------------------------
-# 3. Multi-Baseline Comparison (Random vs Whisper Native vs WhisperWatch)
+# 4. Multi-Baseline Comparison (Random vs Whisper Native vs WhisperWatch)
 # ---------------------------------------------------------------------------
 
 def compare_baselines(
@@ -350,14 +486,21 @@ def compare_baselines(
     wer_threshold: float = DEFAULT_WER_THRESHOLD,
     random_seed: int = 42,
     n_random_simulations: int = 100,
+    rounding: str = "round",
+    budget_count: Optional[int] = None,
+    tie_break_col: Optional[str] = "clip_id",
+    hybrid_col: Optional[str] = "original_hybrid_risk",
+    include_hybrid: Optional[bool] = None,
+    na_position_logprob: str = "first",
 ) -> pd.DataFrame:
-    """Compare all three methods on the exact same held-out records.
+    """Compare methods on the exact same held-out records.
 
     Methods compared:
     1. Random Review: Expected recall is equal to budget fraction (e.g. 20%).
        Precision is equal to the prevalence of high-error transcripts in the dataset.
     2. Native Whisper Confidence: Ranked by avg_logprob ascending (lower = higher priority).
     3. WhisperWatch Model: Ranked by risk_score descending (higher = higher priority).
+    4. WhisperWatch Original Hybrid (optional / auto-detected): 50/50 percentile rank blending.
 
     Returns:
         pd.DataFrame with comparative columns:
@@ -386,38 +529,51 @@ def compare_baselines(
                 "found in DataFrame."
             )
 
-    # Require non-null entries for fair evaluation across identical records
-    valid_mask = (
-        work_df[true_col].notna()
-        & work_df[risk_col].notna()
-        & work_df[logprob_col].notna()
-    )
+    # Resolve risk column if alternative name exists
+    if risk_col not in work_df.columns:
+        if "classifier_risk" in work_df.columns:
+            risk_col = "classifier_risk"
+        elif "original_hybrid_risk" in work_df.columns:
+            risk_col = "original_hybrid_risk"
+        else:
+            raise KeyError(f"Risk column '{risk_col}' not found in DataFrame.")
+
+    # Resolve logprob column if native_risk exists
+    if logprob_col not in work_df.columns and "native_risk" in work_df.columns:
+        work_df[logprob_col] = -work_df["native_risk"]
+
+    if logprob_col not in work_df.columns:
+        raise KeyError(f"Logprob column '{logprob_col}' not found in DataFrame.")
+
+    # Population filtering: require valid true label and risk_col
+    if na_position_logprob == "first":
+        valid_mask = work_df[true_col].notna() & work_df[risk_col].notna()
+    else:
+        valid_mask = (
+            work_df[true_col].notna()
+            & work_df[risk_col].notna()
+            & work_df[logprob_col].notna()
+        )
     work_df = work_df[valid_mask].copy()
 
     n_total = len(work_df)
     total_high_error = int(work_df[true_col].sum())
     prevalence = total_high_error / n_total if n_total > 0 else 0.0
 
-    k = int(round(n_total * budget))
+    if budget_count is not None:
+        k = max(0, min(n_total, int(round(budget_count))))
+    elif rounding == "ceil":
+        k = int(math.ceil(n_total * budget))
+    elif rounding == "floor":
+        k = int(math.floor(n_total * budget))
+    else:
+        k = int(round(n_total * budget))
     k = max(0, min(n_total, k))
 
     # --- Method 1: Random Review ---
-    # Expected analytical metrics
-    expected_random_caught = total_high_error * budget
-    expected_random_recall = budget if total_high_error > 0 else 0.0
+    expected_random_caught = total_high_error * (k / n_total) if n_total > 0 else 0.0
+    expected_random_recall = (k / n_total) if (n_total > 0 and total_high_error > 0) else 0.0
     expected_random_precision = prevalence
-
-    # Empirical Monte Carlo simulation for verification
-    if n_total > 0 and k > 0:
-        rng = np.random.default_rng(random_seed)
-        labels = work_df[true_col].to_numpy()
-        sim_caught = [
-            rng.choice(labels, size=k, replace=False).sum()
-            for _ in range(n_random_simulations)
-        ]
-        mean_sim_caught = float(np.mean(sim_caught))
-    else:
-        mean_sim_caught = 0.0
 
     random_res = {
         "method": "Random Review (Baseline 1)",
@@ -426,8 +582,8 @@ def compare_baselines(
         "clips_reviewed": k,
         "total_high_error": total_high_error,
         "high_error_caught": round(expected_random_caught, 1),
-        "recall_at_budget": expected_random_recall,
-        "precision_at_budget": expected_random_precision,
+        "recall_at_budget": float(expected_random_recall),
+        "precision_at_budget": float(expected_random_precision),
         "lift_over_random": 1.0,
         "relative_improvement_vs_whisper": 0.0,
     }
@@ -437,8 +593,12 @@ def compare_baselines(
         work_df,
         priority_col=logprob_col,
         budget=budget,
+        budget_count=k,
         ascending=True,  # Lower logprob = higher priority
         true_col=true_col,
+        rounding=rounding,
+        tie_break_col=tie_break_col,
+        na_position=na_position_logprob,
     )
     whisper_res = {
         "method": "Whisper Native Confidence (Baseline 2)",
@@ -458,11 +618,13 @@ def compare_baselines(
         work_df,
         priority_col=risk_col,
         budget=budget,
+        budget_count=k,
         ascending=False,  # Higher risk score = higher priority
         true_col=true_col,
+        rounding=rounding,
+        tie_break_col=tie_break_col,
     )
 
-    # Relative improvement in caught clips vs Whisper native
     whisper_caught = whisper_eval["high_error_caught"]
     ww_caught = ww_eval["high_error_caught"]
     if whisper_caught > 0:
@@ -483,7 +645,43 @@ def compare_baselines(
         "relative_improvement_vs_whisper": rel_improvement,
     }
 
-    results = pd.DataFrame([random_res, whisper_res, ww_res])
+    method_rows = [random_res, whisper_res, ww_res]
+
+    # --- Method 4: Optional Original Hybrid ---
+    should_include_hybrid = (
+        include_hybrid is True
+        or (include_hybrid is None and hybrid_col is not None and hybrid_col in work_df.columns)
+    )
+    if should_include_hybrid:
+        if hybrid_col not in work_df.columns:
+            work_df[hybrid_col] = compute_hybrid_risk(work_df, classifier_risk_col=risk_col, avg_logprob_col=logprob_col)
+        hyb_eval = evaluate_review_budget(
+            work_df,
+            priority_col=hybrid_col,
+            budget=budget,
+            budget_count=k,
+            ascending=False,
+            true_col=true_col,
+            rounding=rounding,
+            tie_break_col=tie_break_col,
+        )
+        hyb_caught = hyb_eval["high_error_caught"]
+        hyb_rel = ((hyb_caught - whisper_caught) / whisper_caught * 100.0) if whisper_caught > 0 else 0.0
+        hyb_res = {
+            "method": "WhisperWatch Original Hybrid",
+            "priority_signal": f"Descending {hybrid_col} (50/50 Percentile Blend)",
+            "budget_fraction": budget,
+            "clips_reviewed": hyb_eval["reviewed_clips"],
+            "total_high_error": total_high_error,
+            "high_error_caught": hyb_eval["high_error_caught"],
+            "recall_at_budget": hyb_eval["recall_at_budget"],
+            "precision_at_budget": hyb_eval["precision_at_budget"],
+            "lift_over_random": hyb_eval["lift_over_random"],
+            "relative_improvement_vs_whisper": hyb_rel,
+        }
+        method_rows.append(hyb_res)
+
+    results = pd.DataFrame(method_rows)
     return results
 
 
@@ -601,6 +799,22 @@ def load_predictions(
         "wer_threshold": wer_threshold,
     }
 
+    # Map synonyms if standard names not directly present
+    if "risk_score" not in df.columns:
+        if "classifier_risk" in df.columns:
+            df["risk_score"] = df["classifier_risk"]
+        elif "original_hybrid_risk" in df.columns:
+            df["risk_score"] = df["original_hybrid_risk"]
+
+    if "avg_logprob" not in df.columns and "native_risk" in df.columns:
+        df["avg_logprob"] = -df["native_risk"]
+
+    if "whisper_text" not in df.columns and "transcript" in df.columns:
+        df["whisper_text"] = df["transcript"]
+
+    if "human_text" not in df.columns and "reference" in df.columns:
+        df["human_text"] = df["reference"]
+
     # Validate essential columns
     for col in REQUIRED_COLUMNS:
         if col not in df.columns:
@@ -638,10 +852,13 @@ def load_predictions(
 
     # Handle missing values
     if drop_na:
-        critical_cols = ["risk_score", "avg_logprob", "true_high_error"]
-        na_count = int(df[critical_cols].isna().any(axis=1).sum())
+        if "native_confidence_missing" in df.columns:
+            valid_rows = df["true_high_error"].notna() & df["risk_score"].notna() & (df["avg_logprob"].notna() | df["native_confidence_missing"])
+        else:
+            valid_rows = df["true_high_error"].notna() & df["risk_score"].notna() & df["avg_logprob"].notna()
+        na_count = int((~valid_rows).sum())
         metadata["missing_value_rows_dropped"] = na_count
-        df = df.dropna(subset=critical_cols).copy()
+        df = df[valid_rows].copy()
     else:
         metadata["missing_value_rows_dropped"] = 0
 

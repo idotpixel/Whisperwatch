@@ -1,25 +1,33 @@
-budget,method,clips_reviewed,high_error_caught,recall_at_budget,precision_at_budget,lift_over_random
-0.05,Random Review (Baseline 1),25,4.1,0.05,0.164,1.0
-0.05,Whisper Native Confidence (Baseline 2),25,25.0,0.3048780487804878,1.0,6.097560975609755
-0.05,WhisperWatch (Our Model),25,25.0,0.3048780487804878,1.0,6.097560975609755
-0.1,Random Review (Baseline 1),50,8.2,0.1,0.164,1.0
-0.1,Whisper Native Confidence (Baseline 2),50,34.0,0.4146341463414634,0.68,4.146341463414633
-0.1,WhisperWatch (Our Model),50,50.0,0.6097560975609756,1.0,6.097560975609755
-0.15,Random Review (Baseline 1),75,12.3,0.15,0.164,1.0
-0.15,Whisper Native Confidence (Baseline 2),75,44.0,0.5365853658536586,0.5866666666666667,3.577235772357724
-0.15,WhisperWatch (Our Model),75,75.0,0.9146341463414634,1.0,6.097560975609756
-0.2,Random Review (Baseline 1),100,16.4,0.2,0.164,1.0
-0.2,Whisper Native Confidence (Baseline 2),100,52.0,0.6341463414634146,0.52,3.170731707317073
-0.2,WhisperWatch (Our Model),100,81.0,0.9878048780487805,0.81,4.939024390243902
-0.25,Random Review (Baseline 1),125,20.5,0.25,0.164,1.0
-0.25,Whisper Native Confidence (Baseline 2),125,60.0,0.7317073170731707,0.48,2.926829268292683
-0.25,WhisperWatch (Our Model),125,82.0,1.0,0.656,4.0
-0.3,Random Review (Baseline 1),150,24.6,0.3,0.164,1.0
-0.3,Whisper Native Confidence (Baseline 2),150,65.0,0.7926829268292683,0.43333333333333335,2.642276422764228
-0.3,WhisperWatch (Our Model),150,82.0,1.0,0.5466666666666666,3.3333333333333335
-0.4,Random Review (Baseline 1),200,32.8,0.4,0.164,1.0
-0.4,Whisper Native Confidence (Baseline 2),200,67.0,0.8170731707317073,0.335,2.042682926829268
-0.4,WhisperWatch (Our Model),200,82.0,1.0,0.41,2.5
-0.5,Random Review (Baseline 1),250,41.0,0.5,0.164,1.0
-0.5,Whisper Native Confidence (Baseline 2),250,68.0,0.8292682926829268,0.272,1.6585365853658536
-0.5,WhisperWatch (Our Model),250,82.0,1.0,0.328,2.0
+budget,method,recall_at_budget
+0.05,Random,0.05078125
+0.05,Native,0.1015625
+0.05,WhisperWatch,0.125
+0.05,Hybrid,0.11328125
+0.1,Random,0.1015625
+0.1,Native,0.171875
+0.1,WhisperWatch,0.203125
+0.1,Hybrid,0.203125
+0.15,Random,0.15234375
+0.15,Native,0.28515625
+0.15,WhisperWatch,0.26171875
+0.15,Hybrid,0.29296875
+0.2,Random,0.19921875
+0.2,Native,0.34765625
+0.2,WhisperWatch,0.33203125
+0.2,Hybrid,0.35546875
+0.25,Random,0.25
+0.25,Native,0.3984375
+0.25,WhisperWatch,0.3984375
+0.25,Hybrid,0.41015625
+0.3,Random,0.30078125
+0.3,Native,0.4453125
+0.3,WhisperWatch,0.44921875
+0.3,Hybrid,0.44921875
+0.4,Random,0.3984375
+0.4,Native,0.5546875
+0.4,WhisperWatch,0.53125
+0.4,Hybrid,0.54296875
+0.5,Random,0.5
+0.5,Native,0.66015625
+0.5,WhisperWatch,0.625
+0.5,Hybrid,0.63671875

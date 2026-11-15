@@ -28,6 +28,8 @@ from src.evaluate import (
     compute_f1,
     compute_average_precision,
     compute_roc_auc,
+    compute_hybrid_risk,
+    compute_paired_comparison,
     evaluate_classification_metrics,
     evaluate_review_budget,
     compare_baselines,
@@ -436,3 +438,144 @@ def test_export_frontend_examples(clean_synthetic_predictions):
         assert "risk_score" in first
         assert "recommend_review" in first
         assert "outcome_category" in first
+
+
+# ---------------------------------------------------------------------------
+# 7. Member C Verification & Rigor Tests (Phase 2 Specifications)
+# ---------------------------------------------------------------------------
+
+def test_compute_hybrid_risk_calculation():
+    """Verify 50/50 percentile hybrid risk calculation and missing confidence handling."""
+    # 4 clips
+    df = pd.DataFrame({
+        "clip_id": ["c1", "c2", "c3", "c4"],
+        "classifier_risk": [0.10, 0.40, 0.70, 0.90],
+        "avg_logprob": [-0.10, -0.50, -0.90, np.nan],  # c4 has missing confidence
+    })
+
+    hybrid = compute_hybrid_risk(df, classifier_risk_col="classifier_risk", avg_logprob_col="avg_logprob")
+    assert len(hybrid) == 4
+    # c4 should have native percentile 1.0 because missing confidence is ranked first
+    # classifier rank for c4 is 1.0 (highest score: 0.90)
+    # Expected c4 hybrid = (1.0 + 1.0) / 2 = 1.0
+    assert pytest.approx(hybrid.iloc[3], 0.001) == 1.0
+
+    # c1 has lowest native risk (-0.10 -> rank 0.25) and lowest classifier risk (0.10 -> rank 0.25)
+    # Expected c1 hybrid = (0.25 + 0.25) / 2 = 0.25
+    assert pytest.approx(hybrid.iloc[0], 0.001) == 0.25
+
+
+def test_review_budget_rounding_options():
+    """Verify rounding strategies ('ceil', 'floor', 'round') on non-integer budgets."""
+    # 9 clips, 20% budget -> 9 * 0.20 = 1.8 clips
+    df = pd.DataFrame({
+        "clip_id": [f"c{i}" for i in range(9)],
+        "risk_score": np.linspace(0.1, 0.9, 9),
+        "true_high_error": [0] * 7 + [1, 1],
+    })
+
+    # ceil(1.8) -> 2 clips
+    res_ceil = evaluate_review_budget(df, priority_col="risk_score", budget=0.20, rounding="ceil")
+    assert res_ceil["reviewed_clips"] == 2
+
+    # floor(1.8) -> 1 clip
+    res_floor = evaluate_review_budget(df, priority_col="risk_score", budget=0.20, rounding="floor")
+    assert res_floor["reviewed_clips"] == 1
+
+    # round(1.8) -> 2 clips
+    res_round = evaluate_review_budget(df, priority_col="risk_score", budget=0.20, rounding="round")
+    assert res_round["reviewed_clips"] == 2
+
+
+def test_budget_count_override_and_non_integer():
+    """Verify explicit budget_count overrides budget fraction and handles non-integer counts."""
+    df = pd.DataFrame({
+        "clip_id": [f"c{i}" for i in range(10)],
+        "risk_score": np.linspace(0.1, 1.0, 10),
+        "true_high_error": [0] * 8 + [1, 1],
+    })
+
+    # Float budget_count=3.7 rounds to 4 clips
+    res = evaluate_review_budget(df, priority_col="risk_score", budget=0.10, budget_count=3.7)
+    assert res["reviewed_clips"] == 4
+
+
+def test_deterministic_tie_breaking():
+    """Verify deterministic tie-breaking using clip_id ascending when scores are tied."""
+    # All clips have identical risk score
+    df = pd.DataFrame({
+        "clip_id": ["clip_z", "clip_a", "clip_m", "clip_b"],
+        "risk_score": [0.50, 0.50, 0.50, 0.50],
+        "true_high_error": [1, 0, 1, 0],
+    })
+
+    # Budget of 2 clips: with tie_break_col='clip_id', should deterministically pick clip_a and clip_b
+    res = evaluate_review_budget(
+        df, priority_col="risk_score", budget_count=2, tie_break_col="clip_id", ascending=False
+    )
+    assert res["reviewed_clips"] == 2
+    # clip_a (error=0) and clip_b (error=0) -> caught = 0
+    assert res["high_error_caught"] == 0
+
+
+def test_missing_confidence_ranked_first():
+    """Verify missing confidence (NaN logprob) is placed first when na_position='first'."""
+    df = pd.DataFrame({
+        "clip_id": ["c1", "c2", "c3"],
+        "avg_logprob": [-0.10, -0.90, np.nan],  # c3 is missing confidence
+        "true_high_error": [0, 0, 1],
+    })
+
+    # Budget of 1 clip: with na_position='first', c3 must be selected first
+    res = evaluate_review_budget(
+        df, priority_col="avg_logprob", budget_count=1, ascending=True, na_position="first"
+    )
+    assert res["reviewed_clips"] == 1
+    assert res["high_error_caught"] == 1  # c3 was caught!
+
+
+def test_all_tied_scores():
+    """Verify behavior when all records have identical priority scores."""
+    df = pd.DataFrame({
+        "clip_id": [f"c{i}" for i in range(10)],
+        "risk_score": [0.5] * 10,
+        "true_high_error": [1] * 5 + [0] * 5,
+    })
+
+    res = evaluate_review_budget(df, priority_col="risk_score", budget=0.20)
+    assert res["reviewed_clips"] == 2
+    assert res["total_clips"] == 10
+    assert 0.0 <= res["recall_at_budget"] <= 1.0
+
+
+def test_compute_paired_comparison():
+    """Verify discordant pair analysis and exact binomial p-value calculation."""
+    df = pd.DataFrame({
+        "clip_id": [f"c{i}" for i in range(10)],
+        "true_high_error": [1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+        # Method A reviews c0, c1, c2 (3 high errors)
+        "method_a_review": [True, True, True, False, False, False, False, False, False, False],
+        # Method B reviews c0, c1, c3, c4 (4 high errors)
+        "method_b_review": [True, True, False, True, True, False, False, False, False, False],
+    })
+
+    paired = compute_paired_comparison(df, "method_a_review", "method_b_review")
+    assert paired["n_high_error"] == 5
+    assert paired["both_caught"] == 2     # c0, c1
+    assert paired["a_only_caught"] == 1   # c2
+    assert paired["b_only_caught"] == 2   # c3, c4
+    assert paired["neither_caught"] == 0
+    assert paired["net_difference"] == 1  # 2 - 1 = +1
+    assert 0.0 <= paired["p_value"] <= 1.0
+
+
+def test_compare_baselines_with_hybrid(clean_synthetic_predictions):
+    """Verify compare_baselines includes original hybrid when requested or present."""
+    df = clean_synthetic_predictions.copy()
+    df["original_hybrid_risk"] = compute_hybrid_risk(
+        df, classifier_risk_col="risk_score", avg_logprob_col="avg_logprob"
+    )
+
+    comp = compare_baselines(df, budget=0.20)
+    assert len(comp) == 4  # Random, Native, Classifier, Hybrid
+    assert any("Hybrid" in m for m in comp["method"])

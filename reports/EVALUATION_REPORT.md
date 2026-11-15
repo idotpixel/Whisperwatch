@@ -1,18 +1,21 @@
 # WhisperWatch — Model Evaluation & Research Report
 
-> [!NOTE]
-> **SYNTHETIC TEST FIXTURE**: This demonstration report was generated using a realistic synthetic test fixture simulating Member A's model output format while the full trained model completes final export. All calculations and formulas reflect the real evaluation codebase.
+> [!IMPORTANT]
+> **FINAL VERIFIED EVALUATION COMPLETE**: The independent evaluation verification has been completed by Member C using Member A's four genuine experimental prediction datasets. All synthetic fixtures have been deprecated.
+>
+> Please consult the official, comprehensive evaluation report: **[FINAL_EVALUATION.md](FINAL_EVALUATION.md)** and the integration guide: **[INTEGRATION_HANDOFF.md](INTEGRATION_HANDOFF.md)**.
 
 ## 1. Executive Summary
 
 - **Central Research Question**: *Can WhisperWatch identify more high-error transcriptions than a simple Whisper-confidence ranking when human reviewers can inspect only a limited number of clips?*
-- **The Verdict**: **YES.** WhisperWatch provides a substantial, statistically meaningful improvement over both random spot-checking and Whisper's native log-probability confidence ranking.
+- **The Verdict**: Confidence-based review prioritization performs **2.0x to 3.5x better than random review** across all evaluated speech corpora. Our custom ML classifier and original 50/50 hybrid perform **comparably to native Whisper confidence**, but additional predictive benefit remains uncertain.
 - **Operational Scenario**: A subtitle editing team with capacity to review **20% of audio recordings**.
-- **Key Finding**:
-  - **Random Review** catches approximately **20.0%** of high-error recordings.
-  - **Whisper Native Confidence** (`avg_logprob`) catches **63.4%** of high-error recordings.
-  - **WhisperWatch** (`risk_score`) catches **98.8%** of high-error recordings.
-  - **Improvement over Whisper Confidence**: **+55.8%** more high-error clips detected under the exact same review budget.
+- **Key Finding (Primary Live Meeting Holdout - AMI)**:
+  - **Random Review**: Catches **20.3%** of high-error recordings (52 / 256 clips).
+  - **Whisper Native Confidence** (`avg_logprob`): Catches **34.8%** of high-error recordings (89 / 256 clips).
+  - **WhisperWatch ML Classifier**: Catches **33.2%** of high-error recordings (85 / 256 clips).
+  - **WhisperWatch Original Hybrid** (50/50): Catches **35.5%** of high-error recordings (91 / 256 clips).
+  - **Statistical Significance**: Paired exact binomial test confirms the +2 clip difference between Native Confidence and Hybrid is **not statistically significant** ($p = 0.8388$).
   - **Lift over Random Guessing**: **4.94x** higher detection efficiency.
 
 ---
