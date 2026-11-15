@@ -1,12 +1,21 @@
-# WhisperWatch
+<h1 align="center">
+  <img src="assets/whisperwatch-logo.svg" alt="WhisperWatch" width="540">
+</h1>
 
-*Veritas AI International High School Hackathon 2026 · Languages track*
-
-## Which captions should a human check first?
+<p align="center"><strong>Which captions should a human check first?</strong></p>
+<p align="center"><em>Veritas AI International High School Hackathon 2026 · Languages track</em></p>
 
 Automatic captions save time, but checking every line can still take hours. WhisperWatch helps subtitle editors decide where to start when they can only review a fraction of their clips.
 
 Upload a short English recording and Whisper turns it into text. A model we trained estimates how likely the transcript is to have substantial word errors. For a batch of clips, the app can combine that estimate with Whisper’s own confidence signals to build a review queue. The editor can then listen to the recordings and make the final call.
+
+## See a real false alarm
+
+WhisperWatch queued this clip for review even though every word matched the human transcript. Dataset Replay shows both versions and explains the decision.
+
+![WhisperWatch Dataset Replay showing a false alarm and two transcripts with the same words](assets/replay-false-alarm.png)
+
+In another case, Whisper wrote **“data text”** instead of **“teletext,”** and the combined ranking missed it.
 
 ## What we found
 
@@ -20,12 +29,6 @@ We tested four ways of choosing clips on the same set of 750 AMI meeting recordi
 | Both scores combined | 91 |
 
 Each way of prioritizing clips caught more errors than random selection on this test. The combined score found two more high-error clips than Whisper’s confidence alone. Across our other tests, that advantage varied.
-
-## What a false alarm looks like
-
-In the example below, WhisperWatch put a clip in the review queue even though every word matched the human transcript. In another clip, Whisper wrote **“data text”** instead of **“teletext,”** and the combined ranking missed it. Dataset Replay shows the transcripts side by side and explains what happened in each case. A high score is a reason to listen more closely.
-
-![WhisperWatch Dataset Replay showing a false alarm. The generated transcript and the human reference contain the same words.](assets/replay-false-alarm.png)
 
 ## Try the interface
 
