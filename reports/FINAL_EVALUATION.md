@@ -17,7 +17,7 @@ WhisperWatch evaluates AI-generated speech transcriptions produced by OpenAI Whi
 > *Can WhisperWatch identify more high-error transcriptions than a standard Whisper-confidence ranking when human editors have capacity to inspect only a limited fraction (20%) of audio recordings?*
 
 ### The Scientific Verdict
-1. **Confidence-Based Prioritization Outperforms Random Review**: Prioritizing audio clips based on confidence signals captures **2.0x to 3.5x more severe errors** than uniform spot-checking across all evaluated corpora.
+1. **Confidence-based prioritization caught more errors than random review.** At the same review budget, Whisper’s confidence caught 89 vs. 52 high-error clips on AMI and 14 vs. 4 on LibriSpeech, the two held-out sets with measured random baselines.
 2. **WhisperWatch Performs Comparably to Native Whisper Confidence**: Across four diverse evaluation cohorts, our custom-trained ML classifier and original 50/50 hybrid model perform comparably to Whisper's native log-probability confidence ranking (`avg_logprob`), but **its additional statistical benefit remains uncertain**.
 3. **Statistically Indistinguishable Gains**: While the original hybrid model achieved small nominal gains on some datasets (+10 catches on Common Voice dev, +1 on LibriSpeech live, +2 on the first AMI live holdout), paired two-sided binomial tests confirm these differences are **not statistically significant** ($p \ge 0.18$).
 4. **Honest Scientific Reporting**: Consistent with Veritas AI Hackathon guidelines and rigorous scientific principles, we present authentic experimental outputs without exaggeration.
@@ -245,10 +245,10 @@ All generated evaluation assets are located in `reports/` and are verified compa
 
 The empirical evidence from our four evaluation cohorts supports the following conclusion:
 
-> **Confidence-based review prioritization performs substantially better than random spot-checking on all evaluated speech corpora, catching 2.0x to 3.5x more severe errors under a fixed 20% review budget.**
+> At the same review budget, Whisper’s confidence caught 89 vs. 52 high-error clips on AMI and 14 vs. 4 on LibriSpeech, the two held-out sets with measured random baselines.
 > 
 > **Our custom-trained machine learning classifier performs comparably to OpenAI Whisper's native acoustic confidence (`avg_logprob`), but its additional predictive benefit remains uncertain.**
 > 
-> **On our evaluated test sets, blending classifier predictions with native confidence into an ensemble hybrid yields small nominal differences (-1 to +10 clips caught), but these differences are not statistically significant ($p \ge 0.18$) and remain within cross-speaker and cross-meeting cluster variability.**
+> **Across the evaluated cohorts, including the explored Common Voice development set, blending classifier predictions with native confidence into an ensemble hybrid yields small nominal differences (-1 to +10 clips caught), but these differences are not statistically significant ($p \ge 0.18$) and remain within cross-speaker and cross-meeting cluster variability.**
 
 This rigorous, honest evaluation demonstrates scientific integrity, reproducible methodology, and engineering excellence for the Veritas AI Hackathon 2026.
