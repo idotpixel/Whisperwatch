@@ -16,6 +16,7 @@ from ui.views import live_assessment, ranked_batch, replay_assessment, score_car
 ROOT = Path(__file__).resolve().parent
 VERIFIED = ROOT / "assets" / "verified"
 STYLES = ROOT / "assets" / "whisperwatch.css"
+REPLAY_CASES = ROOT / "assets" / "replay_cases.json"
 GRADIO_MAJOR = int(gr.__version__.split(".")[0])
 PRIVATE_EVENT = {"api_visibility": "private"} if GRADIO_MAJOR >= 6 else {"api_name": False}
 LOGGER = logging.getLogger(__name__)
@@ -225,9 +226,9 @@ def replay_tab(path):
 
         grouped = {}
         for example in replay.examples.values():
-            grouped.setdefault(example.dataset, []).append(example.clip_id)
-        datasets = sorted(grouped)
-        first = replay.examples[grouped[datasets[0]][0]]
+            choice = (example.case_title or example.clip_id, example.clip_id)
+            grouped.setdefault(example.dataset, []).append(choice)
+        first = next(iter(replay.examples.values()))
 
         def select_clip(clip_id):
             example = replay.examples.get(clip_id)
@@ -236,15 +237,20 @@ def replay_tab(path):
             return example.whisper_text, example.human_text, replay_assessment(example)
 
         def select_dataset(dataset):
-            choices = grouped[dataset]
-            return gr.update(choices=choices, value=choices[0]), *select_clip(choices[0])
+            choices = grouped.get(dataset)
+            if not choices:
+                raise gr.Error("Select a dataset.")
+            first_id = choices[0][1]
+            return gr.update(choices=choices, value=first_id), *select_clip(first_id)
 
         with gr.Row(elem_classes="workspace-grid"):
             with gr.Column(scale=7, min_width=310, elem_classes="card"):
-                gr.HTML(panel_heading("Dataset Replay & Historical Case Studies",
-                                      escape(replay.source)))
+                gr.HTML(panel_heading(
+                    "Dataset Replay & Historical Case Studies",
+                    f"Illustrative historical cases handpicked to show different outcomes. {escape(replay.source)}.",
+                ))
                 with gr.Row():
-                    dataset = gr.Dropdown(datasets, value=first.dataset, label="Dataset", interactive=True)
+                    dataset = gr.Dropdown(list(grouped), value=first.dataset, label="Dataset", interactive=True)
                     clip = gr.Dropdown(
                         grouped[first.dataset], value=first.clip_id, label="Historical clip", interactive=True,
                     )
@@ -255,6 +261,11 @@ def replay_tab(path):
                 reference = gr.Textbox(
                     first.human_text, label="Human Reference Transcript",
                     lines=3, max_lines=8, interactive=False, elem_classes="transcript",
+                )
+                gr.HTML(
+                    '<p class="muted">WER measures word-level differences and can penalize harmless '
+                    'variations in phrasing, filler words, and contractions. A high WER does not '
+                    'always indicate a meaningful loss of information.</p>'
                 )
             with gr.Column(scale=4, min_width=280, elem_classes="card"):
                 assessment = gr.HTML(replay_assessment(first))
@@ -311,7 +322,7 @@ def theme_settings():
 
 def build_app(replay_path=None, evaluation_path=None):
     """Build on Gradio 4, 5, or 6. Older builds use an in-page workspace link."""
-    replay_path = Path(replay_path) if replay_path else evaluation_asset("frontend_examples.json")
+    replay_path = Path(replay_path) if replay_path else REPLAY_CASES
     evaluation_path = Path(evaluation_path) if evaluation_path else evaluation_asset("verified_experiments.json")
     routed = callable(getattr(gr.Blocks, "route", None))
     settings = theme_settings() if GRADIO_MAJOR < 6 else {}

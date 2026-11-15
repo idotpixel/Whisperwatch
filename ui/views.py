@@ -10,7 +10,9 @@ def status_line(message, tone="neutral"):
     return f'<p class="status {tone}" role="status"><i></i>{escape(message)}</p>'
 
 
-def score_card(score=None, review=False, *, title="Estimated Review Risk", recommendation=None):
+def score_card(
+    score=None, review=False, *, title="Estimated Review Risk", recommendation=None, description=None,
+):
     """Show the model score as a position on its scale."""
     if score is None:
         return """<div class="risk-empty">
@@ -21,7 +23,7 @@ def score_card(score=None, review=False, *, title="Estimated Review Risk", recom
     tone = "warning" if review else "low"
     icon = "!" if review else "✓"
     label = recommendation or ("Review Recommended" if review else "Lower Review Priority")
-    explanation = (
+    explanation = description or (
         "Prioritize this transcript for a human check."
         if review else "Lower priority for review. Errors may still be present."
     )
@@ -34,7 +36,7 @@ def score_card(score=None, review=False, *, title="Estimated Review Risk", recom
       </div>
       <div class="scale-labels"><span>0 · Lower</span><span>1 · Higher</span></div>
       <div class="recommendation"><span aria-hidden="true">{icon}</span>{escape(label)}</div>
-      <p class="muted">{explanation}</p>
+      <p class="muted">{escape(explanation)}</p>
     </div>"""
 
 
@@ -69,21 +71,44 @@ def live_assessment(result):
 
 def replay_assessment(example):
     """Present the saved decision and reference-based outcomes for one historical case."""
-    title = "Archived Hybrid Priority" if example.classifier_risk is not None else "Archived Review Score"
-    decision = "Review Recommended" if example.recommend_review else "Outside the Archived Review Budget"
-    card = score_card(example.risk_score, example.recommend_review, title=title, recommendation=decision)
-    truth = "High Error" if example.true_high_error else "Acceptable"
+    has_hybrid = example.classifier_risk is not None
+    title = "Historical Hybrid Review Priority" if has_hybrid else "Archived Review Score"
+    decision = "Selected for review" if example.recommend_review else "Not selected for review"
+    description = (
+        "The 0–1 score combines percentile ranks within the original cohort. "
+        "Probability calibration is unverified." if has_hybrid else "Recorded decision from the evaluation export."
+    )
+    card = score_card(example.risk_score, example.recommend_review, title=title,
+                      recommendation=decision, description=description)
+    truth = "High WER" if example.true_high_error else "Within WER cutoff"
+    outcome = {
+        (True, True): "True positive",
+        (True, False): "False negative",
+        (False, True): "False positive",
+        (False, False): "True negative",
+    }[example.true_high_error, example.recommend_review]
+    native_decision = ""
+    budget = ""
+    disagreement = ""
+    if example.native_review is not None:
+        native_decision = f"""<div><dt>Native-confidence review</dt>
+            <dd>{'Selected' if example.native_review else 'Not selected'}</dd></div>"""
+        if example.native_review != example.recommend_review:
+            disagreement = " · Hybrid only" if example.recommend_review else " · Native confidence only"
+        budget = """<p class="muted cutoff-note">Each method used a 20% review budget in the original cohort.
+            The classifier predicts WER-defined error risk. The experiment defines high error as WER above 20%.</p>"""
     classifier = (
         f"<div><dt>WHISPERWATCH classifier risk</dt><dd>{example.classifier_risk:.3f}</dd></div>"
         if example.classifier_risk is not None else ""
     )
-    notes = (
-        f'<div class="case-note"><h3>Case Note</h3><p>{escape(example.outcome_category)}</p>'
-        f'<p>{escape(example.notes)}</p></div>' if example.notes or example.outcome_category else ""
-    )
-    return f"""{card}<dl class="case-outcomes">
+    notes = f"""<div class="case-note"><h3>{escape(example.case_title or 'Case Note')}</h3>
+        <p>{escape(example.notes)}</p>
+        <p style="overflow-wrap:anywhere">Clip ID: {escape(example.clip_id)}</p></div>"""
+    return f"""{card}{budget}<dl class="case-outcomes">
       <div><dt>Ground-truth WER</dt><dd>{example.wer:.1%}</dd></div>
       <div><dt>True Error Status</dt><dd>{truth}</dd></div>
+      <div><dt>{'Hybrid outcome' if has_hybrid else 'Recorded outcome'}</dt><dd>{outcome}{disagreement}</dd></div>
+      {native_decision}
       {classifier}
       <div><dt>Whisper mean log probability</dt><dd>{confidence_text(example.avg_logprob)}</dd></div>
     </dl>{notes}"""

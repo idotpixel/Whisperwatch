@@ -59,8 +59,9 @@ class Example:
     human_text: str
     classifier_risk: float | None = None
     avg_logprob: float | None = None
-    outcome_category: str = ""
     notes: str = ""
+    case_title: str = ""
+    native_review: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -106,6 +107,7 @@ def parse_replay(document):
             raise ValueError("true_high_error must be a Boolean or a 0/1 label.")
         classifier = row.get("classifier_risk")
         confidence = row.get("avg_logprob")
+        native_review = row.get("native_review")
         if confidence is not None and (
             type(confidence) not in (float, int) or not -float("inf") < confidence <= 0
         ):
@@ -121,8 +123,9 @@ def parse_replay(document):
             text_field(row.get("human_text"), "human_text", allow_empty=True),
             None if classifier is None else number_field(classifier, "classifier_risk"),
             confidence,
-            text_field(row.get("outcome_category", ""), "outcome_category", allow_empty=True),
             text_field(row.get("notes", ""), "notes", allow_empty=True),
+            case_title=text_field(row.get("case_title", ""), "case_title", allow_empty=True),
+            native_review=None if native_review is None else review_label(native_review),
         )
     return Replay(examples, source)
 
