@@ -9,12 +9,12 @@ import pyarrow.parquet as pq
 from sklearn.model_selection import GroupShuffleSplit
 
 from .features import FEATURE_NAMES, extract_features
+from .ranking import REVIEW_FRACTION, blend, review_queue, risk_signals
 from .train import DATA_DIR, get_shard, make_boosted_classifier, prepare_split
 
 
 BOOSTED_WEIGHTS = (0.25, 0.50, 0.75)
 SPLIT_SEED = 20261114
-REVIEW_FRACTION = 0.20
 LABEL = "true_high_error"
 DEV_MEMBER = "outputs/boosted/dev_predictions.csv"
 
@@ -35,21 +35,6 @@ def read_development(bundle) -> pd.DataFrame:
     ):
         raise ValueError("Expected unique English development clips with valid risk scores and binary labels.")
     return dev
-
-
-def risk_signals(dev: pd.DataFrame) -> pd.DataFrame:
-    """Make higher values riskier for both methods."""
-    return pd.DataFrame({
-        "boosted_trees": dev["risk_score"],
-        # Missing confidence goes to the front of the original baseline queue.
-        "whisper_confidence": -dev["avg_logprob"].fillna(-np.inf),
-    })
-
-
-def review_queue(risk: pd.Series) -> pd.Index:
-    """Take the highest-risk 20%, breaking ties by ascending clip ID."""
-    ranked = risk.sort_index().sort_values(ascending=False, kind="stable")
-    return ranked.index[:ceil(len(ranked) * REVIEW_FRACTION)]
 
 
 def detected_overlap(dev: pd.DataFrame) -> dict:
@@ -89,12 +74,6 @@ def review_metrics(labels: pd.Series, signals: pd.DataFrame) -> pd.DataFrame:
     results["extra_vs_trees"] = results["caught"] - results.at["boosted_trees", "caught"]
     results["extra_vs_whisper"] = results["caught"] - results.at["whisper_confidence", "caught"]
     return results
-
-
-def blend(signals: pd.DataFrame, boosted_weight: float) -> pd.Series:
-    """Average percentile ranks with ties receiving their average rank."""
-    ranks = signals.rank(method="average", pct=True)
-    return boosted_weight * ranks["boosted_trees"] + (1 - boosted_weight) * ranks["whisper_confidence"]
 
 
 def split_by_speaker(dev: pd.DataFrame, speakers: pd.Series) -> tuple[pd.DataFrame, pd.DataFrame]:

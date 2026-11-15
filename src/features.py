@@ -20,7 +20,7 @@ FEATURE_NAMES = (
 
 
 def finite_or_nan(value) -> float:
-    """Return a finite number or NaN for the model's missing-value imputer."""
+    """Return a finite number or NaN for the model's missing-value handling."""
     try:
         number = float(value)
     except (TypeError, ValueError, OverflowError):

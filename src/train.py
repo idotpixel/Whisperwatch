@@ -147,6 +147,8 @@ def train_development(*, full_training: bool = False) -> None:
 
 def train_boosted_development(baseline_zip: Path) -> None:
     """Fit boosted trees on the full English training set and compare development rankings."""
+    if BOOSTED_MODEL_PATH.exists():
+        raise FileExistsError(f"A boosted model already exists at {BOOSTED_MODEL_PATH}. Use a separate checkout for historical training.")
     dev = prepare_split("dev")
     # Compare the exact same clips and labels against the saved full logistic run.
     columns = ["clip_id", "true_high_error", "risk_score"]

@@ -76,12 +76,14 @@ def _run_live(input_path, output_path, *, continue_on_error=False):
         settings.update(language=info.language, task=kwargs.get("task"),
                         decoding=asdict(info.transcription_options),
                         vad_filter=info.vad_options is not None,
-                        audio_loading="faster-whisper opens the original MP3 with PyAV and decodes mono 16 kHz")
+                        audio_loading="faster-whisper opens the source audio with PyAV and decodes mono 16 kHz")
         return segments, info
 
     frame = pd.read_json(input_path, orient="records")
     with patch.object(asr, "_whisper_model", return_value=model), patch.object(model, "transcribe", capture_options):
-        for row in frame.itertuples(index=False):
+        for position, row in enumerate(frame.itertuples(index=False), start=1):
+            if continue_on_error and (position == 1 or position % 100 == 0):
+                print(f"Transcribing recording {position}/{len(frame)}", flush=True)
             started = perf_counter()
             try:
                 audio = asr.transcribe_audio(row.audio_path)
