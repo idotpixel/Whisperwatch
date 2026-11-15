@@ -6,15 +6,15 @@ Use Python 3.12 from the repository folder.
 
 ```bash
 python -m pip install -r requirements-live.txt
-python -m src.setup_demo "/path/to/model.zip"
+python -m src.setup_demo
 python app.py
 ```
 
-Use the approved classifier ZIP supplied by the team. The setup command verifies the trained classifier before installing it under `models/`. Whisper weights are downloaded on the first live request. Open the address printed by Gradio and select **Open Workspace**. Upload an English recording up to 30 seconds. CPU inference can take a minute or more.
+The setup command downloads the [model-only release](https://github.com/idotpixel/Whisperwatch/releases/tag/demo-model-v1) and verifies the classifier before installing it under `models/`. If you already downloaded the ZIP, pass its path to `python -m src.setup_demo`. Whisper weights are downloaded on the first live request. Open the address printed by Gradio and select **Open Workspace**. Upload an English recording up to 30 seconds. CPU inference can take a minute or more.
 
 ## Google Colab with the live models
 
-Open [the live demo notebook](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb), choose **Runtime → Change runtime type → T4 GPU**, and run the cells. The notebook clones the public code and asks the host to upload the classifier ZIP. It verifies the model and prints a Gradio link that visitors can use while the Colab runtime is active.
+Open [the live demo notebook](https://colab.research.google.com/github/idotpixel/Whisperwatch/blob/main/notebooks/backend_colab.ipynb), choose **Runtime → Change runtime type → T4 GPU**, and run the cells. The notebook clones the public code, downloads and verifies the classifier, and prints a Gradio link visitors can use while the Colab runtime is active.
 
 ## Replay and benchmarks only
 
